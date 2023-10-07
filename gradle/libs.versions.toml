@@ -1,0 +1,25 @@
+[versions]
+android-gradle-plugin-version = "8.1.1"
+kotlin-android-version = "1.9.0"
+lifecycle-runtime-verson = "2.6.2"
+compose-version = "2023.10.00"
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "android-gradle-plugin-version" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android-version" }
+
+[libraries]
+core-ktx = { group = "androidx.core", name = "core-ktx", version.require = "1.12.0" }
+lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-verson" }
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.require = "1.7.2" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-version" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+
+[bundles]
+compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-ui-test-junit4", "compose-ui-tooling", "compose-ui-test-manifest"]
