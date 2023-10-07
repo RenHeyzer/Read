@@ -1,16 +1,19 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    libs.plugins.apply {
+        alias(android.application)
+        alias(kotlin.android)
+        alias(google.services)
+    }
 }
 
 android {
     namespace = "com.example.read"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.read"
         minSdk = 28
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -56,5 +59,6 @@ dependencies {
         implementation(activity.compose)
         implementation(platform(compose.bom))
         implementation(bundles.compose)
+        implementation(firebase.bom)
     }
 }
