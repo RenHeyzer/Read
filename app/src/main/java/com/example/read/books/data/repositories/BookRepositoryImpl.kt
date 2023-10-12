@@ -1,7 +1,7 @@
 package com.example.read.books.data.repositories
 
 import com.example.read.books.data.remote.dtos.ItemDto
-import com.example.read.books.data.remote.paging.BookPagingSource
+import com.example.read.books.data.paging.BookPagingSource
 import com.example.read.books.data.remote.sources.BookRemoteDataSource
 import com.example.read.books.domain.models.Item
 import com.example.read.books.domain.repositories.BookRepository

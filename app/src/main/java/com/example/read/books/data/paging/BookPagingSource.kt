@@ -1,4 +1,4 @@
-package com.example.read.books.data.remote.paging
+package com.example.read.books.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -19,7 +19,6 @@ class BookPagingSource(
 
     override suspend fun load(params: LoadParams<QuerySnapshot>): LoadResult<QuerySnapshot, Item> {
         return try {
-            delay(2000)
             val currentPage = params.key ?: bookRemoteDataSource.queryBooks().get().await()
             val lastVisibleItem = currentPage.documents.last()
             val nextPage =
