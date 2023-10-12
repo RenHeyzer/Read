@@ -3,6 +3,8 @@ plugins {
         alias(android.application)
         alias(kotlin.android)
         alias(google.services)
+        alias(kotlin.kapt)
+        alias(hilt.android)
     }
 }
 
@@ -43,7 +45,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.2"
     }
     packaging {
         resources {
@@ -59,6 +61,13 @@ dependencies {
         implementation(activity.compose)
         implementation(platform(compose.bom))
         implementation(bundles.compose)
-        implementation(firebase.bom)
+        implementation(platform(firebase.bom))
+        implementation(bundles.firebase)
+        implementation(coil.compose)
+        implementation(bundles.paging)
+        implementation(bundles.hilt)
+        kapt(hilt.android.compiler)
+        implementation(navigation.compose)
+        implementation(accompanist.systemuicontroller)
     }
 }
