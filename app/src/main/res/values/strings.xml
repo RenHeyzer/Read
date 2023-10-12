@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Read</string>
+    <string name="book_poster_image_content_description">poster image of a book</string>
+    <string name="book_chapter_number_and_name_text">Глава %1$s - %2$s</string>
+    <string name="books">Главная</string>
+    <string name="bookmarks">Моё</string>
+    <string name="account">Аккаунт</string>
+    <string name="error_message">Произошла ошибка!</string>
 </resources>
