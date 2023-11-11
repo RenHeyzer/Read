@@ -5,40 +5,44 @@ import javax.inject.Inject
 
 class TimeDifference @Inject constructor() {
 
-    fun getTimeDifference(startDate: Date, endDate: Date): String {
-        var different = endDate.time - startDate.time
+    fun getTimeDifference(startDate: Date, endDate: Date): String? {
+        if (startDate.time != 0L) {
+            var different = endDate.time - startDate.time
 
-        val secondsInMilli: Long = 1000
-        val minutesInMilli = secondsInMilli * 60
-        val hoursInMilli = minutesInMilli * 60
-        val daysInMilli = hoursInMilli * 24
-        val monthInMilli = daysInMilli * 28
-        val yearInMilli = monthInMilli * 12
+            val secondsInMilli: Long = 1000
+            val minutesInMilli = secondsInMilli * 60
+            val hoursInMilli = minutesInMilli * 60
+            val daysInMilli = hoursInMilli * 24
+            val monthInMilli = daysInMilli * 28
+            val yearInMilli = monthInMilli * 12
 
-        val elapsedYears = different / yearInMilli
-        different %= yearInMilli
-        val elapsedMonths = different / monthInMilli
-        different %= monthInMilli
-        val elapsedDays = different / daysInMilli
-        different %= daysInMilli
-        val elapsedHours = different / hoursInMilli
-        different %= hoursInMilli
-        val elapsedMinutes = different / minutesInMilli
-        different %= minutesInMilli
-        val elapsedSeconds = different / secondsInMilli
+            val elapsedYears = different / yearInMilli
+            different %= yearInMilli
+            val elapsedMonths = different / monthInMilli
+            different %= monthInMilli
+            val elapsedDays = different / daysInMilli
+            different %= daysInMilli
+            val elapsedHours = different / hoursInMilli
+            different %= hoursInMilli
+            val elapsedMinutes = different / minutesInMilli
+            different %= minutesInMilli
+            val elapsedSeconds = different / secondsInMilli
 
-        return if (elapsedSeconds.toInt() > 0 && elapsedMinutes.toInt() == 0) {
-            "несколько секнуд назад"
-        } else if (elapsedMinutes.toInt() > 0 && elapsedHours.toInt() == 0) {
-            "несколько минут назад"
-        } else if (elapsedHours.toInt() > 0 && elapsedDays.toInt() == 0) {
-            correctTimeNaming(TimeType.HOUR, elapsedHours.toInt())
-        } else if (elapsedDays.toInt() > 0 && elapsedMonths.toInt() == 0) {
-            correctTimeNaming(TimeType.DAY, elapsedDays.toInt())
-        } else if (elapsedMonths.toInt() > 0 && elapsedYears.toInt() == 0) {
-            correctTimeNaming(TimeType.MONTH, elapsedMonths.toInt())
+            return if (elapsedSeconds.toInt() > 0 && elapsedMinutes.toInt() == 0) {
+                "несколько секнуд назад"
+            } else if (elapsedMinutes.toInt() > 0 && elapsedHours.toInt() == 0) {
+                "несколько минут назад"
+            } else if (elapsedHours.toInt() > 0 && elapsedDays.toInt() == 0) {
+                correctTimeNaming(TimeType.HOUR, elapsedHours.toInt())
+            } else if (elapsedDays.toInt() > 0 && elapsedMonths.toInt() == 0) {
+                correctTimeNaming(TimeType.DAY, elapsedDays.toInt())
+            } else if (elapsedMonths.toInt() > 0 && elapsedYears.toInt() == 0) {
+                correctTimeNaming(TimeType.MONTH, elapsedMonths.toInt())
+            } else {
+                correctTimeNaming(TimeType.YEAR, elapsedYears.toInt())
+            }
         } else {
-            correctTimeNaming(TimeType.YEAR, elapsedYears.toInt())
+            return null
         }
     }
 
