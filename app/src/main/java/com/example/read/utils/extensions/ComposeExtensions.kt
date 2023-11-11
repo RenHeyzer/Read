@@ -1,37 +1,39 @@
-package com.example.read.utils.exntensions
+package com.example.read.utils.extensions
 
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.example.read.utils.UiState
 
 @Composable
-fun <T : Any> CollectAsLazyPagingItems(
-    data: LazyPagingItems<T>,
+fun <T : Any, S> S.ConfigureAsLazyPagingItemsState(
+    pagingItems: LazyPagingItems<T>,
     loadState: LoadState,
-    loading: (@Composable () -> Unit)? = null,
-    error: (@Composable (message: String) -> Unit)? = null,
-    notLoading: (@Composable (data: LazyPagingItems<T>) -> Unit)? = null
+    loading: (@Composable S.() -> Unit)? = null,
+    error: (@Composable S.(message: String) -> Unit)? = null,
+    notLoading: (@Composable S.(data: LazyPagingItems<T>) -> Unit)? = null
 ) {
     when (loadState) {
         LoadState.Loading -> {
             loading?.let {
-                it()
+                it(this)
             }
         }
 
         is LoadState.Error -> {
             loadState.error.localizedMessage?.let { message ->
                 error?.let {
-                    it(message)
+                    it(this, message)
                 }
             }
         }
 
         is LoadState.NotLoading -> {
             notLoading?.let {
-                it(data)
+                it(this, pagingItems)
             }
         }
     }
@@ -54,5 +56,27 @@ fun LazyListScope.pagingLoadStateItem(
             key = keySuffix?.let { "errorItem_$it" },
             content = { error(loadState) },
         )
+    }
+}
+
+@Composable
+fun <T, S> S.ConfigureAsUiState(
+    state: State<UiState<T>>,
+    loading: (@Composable S.() -> Unit)? = null,
+    error: (@Composable S.(message: String) -> Unit)? = null,
+    success: (@Composable S.(data: T) -> Unit)? = null
+) {
+    when (state.value) {
+        is UiState.Loading -> loading?.let { it(this) }
+        is UiState.Error -> {
+            (state.value as UiState.Error<T>).message?.let { message ->
+                error?.let { it(this, message) }
+            }
+        }
+        is UiState.Success -> {
+            (state.value as UiState.Success<T>).data?.let { data ->
+                success?.let { it(this, data) }
+            }
+        }
     }
 }
