@@ -1,0 +1,70 @@
+[versions]
+android-gradle-plugin = "8.1.1"
+kotlin-android = "1.9.0"
+lifecycle-runtime-ktx = "2.6.2"
+compose = "2023.10.01"
+compose-material = "1.5.4"
+paging = "3.2.1"
+hilt-android = "2.48"
+navigation = "2.7.5"
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin-android" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-android" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin-android" }
+google-services = { id = "com.google.gms.google-services", version.require = "4.4.0" }
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt-android" }
+
+[libraries]
+core-ktx = { group = "androidx.core", name = "core-ktx", version.require = "1.12.0" }
+lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.require = "1.8.0" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+compose-material = { group = "androidx.compose.material", name = "material", version.ref = "compose-material" }
+compose-material-icons = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "compose-material" }
+
+#Navigation
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+
+#Firebase
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.require = "32.5.0" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
+
+#Coil
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.require = "2.4.0" }
+
+#Paging 3
+paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
+
+#Hilt
+hilt-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.require = "1.1.0" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt-android" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt-android" }
+
+#Accompanist
+accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.require = "0.33.2-alpha" }
+
+#Algolia
+algolia-instant-search-compose = { group = "com.algolia", name = "instantsearch-compose", version.require = "3.+" }
+algolia-instant-search-paging = { group = "com.algolia", name = "instantsearch-android-paging3", version.require = "3.+" }
+
+#Gson
+gson = { group = "com.google.code.gson", name = "gson", version.require = "2.10.1"}
+
+[bundles]
+compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-ui-test-junit4", "compose-ui-tooling", "compose-ui-test-manifest", "compose-material", "compose-material-icons"]
+hilt = ["hilt-compose", "hilt-android"]
+paging = ["paging-runtime", "paging-compose"]
+firebase = ["firebase-analytics", "firebase-firestore"]
+aloglia = ["algolia-instant-search-compose", "algolia-instant-search-paging"]
