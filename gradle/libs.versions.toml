@@ -56,12 +56,14 @@ gson = { group = "com.google.code.gson", name = "gson", version.require = "2.10.
 
 #Supabase
 supabase-bom = { group = "io.github.jan-tennert.supabase", name = "bom", version.ref = "supabse" }
+supabase-postgrest-kt = { group = "io.github.jan-tennert.supabase", name = "postgrest-kt" }
 supabase-storage-kt = { group = "io.github.jan-tennert.supabase", name = "storage-kt" }
 
 #Ktor Client
-ktor-client = { group = "io.ktor", name = "ktor-client", version.require = "2.3.6"}
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.require = "2.3.6"}
 
 [bundles]
 compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-ui-test-junit4", "compose-ui-tooling", "compose-ui-test-manifest", "compose-material", "compose-material-icons"]
 hilt = ["hilt-compose", "hilt-android"]
 paging = ["paging-runtime", "paging-compose"]
+supabse = ["supabase-postgrest-kt", "supabase-storage-kt"]
