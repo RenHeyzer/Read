@@ -2,7 +2,7 @@ package com.example.read.feature_home.data.remote.dtos
 
 import com.example.read.feature_detail.data.remote.dtos.ChapterDto
 import com.example.read.feature_detail.data.remote.dtos.toChapterObject
-import com.example.read.utils.mapper.Mappable
+import com.example.read.utils.mappers.Mappable
 import com.parse.ParseObject
 
 data class BookItemDto(

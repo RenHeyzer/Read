@@ -1,4 +1,4 @@
-package com.example.read.utils.mapper
+package com.example.read.utils.mappers
 
 import com.example.read.feature_detail.data.remote.dtos.ChapterDto
 import com.example.read.feature_detail.domain.models.Chapter

@@ -4,9 +4,9 @@ import com.example.read.feature_detail.data.remote.dtos.InfoDto
 import com.example.read.feature_detail.data.remote.sources.BookInfoRemoteDataSource
 import com.example.read.feature_detail.domain.models.Info
 import com.example.read.feature_detail.domain.repositories.BookInfoRepository
-import com.example.read.utils.AppDispatchers
+import com.example.read.utils.dispatchers.AppDispatchers
 import com.example.read.utils.base.BaseRepository
-import com.example.read.utils.mapper.Mapper
+import com.example.read.utils.mappers.Mapper
 import javax.inject.Inject
 
 class BookInfoRepositoryImpl @Inject constructor(

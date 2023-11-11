@@ -1,6 +1,6 @@
 package com.example.read.feature_home.data.remote.dtos
 
-import com.example.read.utils.mapper.Mappable
+import com.example.read.utils.mappers.Mappable
 import com.parse.ParseObject
 
 data class RecommendationItemDto(

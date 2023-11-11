@@ -1,4 +1,4 @@
-package com.example.read.utils
+package com.example.read.utils.state_holders
 
 sealed class UiState<T> {
 

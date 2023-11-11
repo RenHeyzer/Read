@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import com.example.read.feature_home.domain.models.BookItem
 import com.example.read.feature_home.domain.models.RecommendationItem
 import com.example.read.feature_home.domain.repositories.BooksRepository
-import com.example.read.utils.UiState
+import com.example.read.utils.state_holders.UiState
 import com.example.read.utils.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

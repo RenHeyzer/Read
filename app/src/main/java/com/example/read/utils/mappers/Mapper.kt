@@ -1,4 +1,4 @@
-package com.example.read.utils.mapper
+package com.example.read.utils.mappers
 
 interface Mapper<F : Mappable, T : Mappable> {
 

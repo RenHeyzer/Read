@@ -14,10 +14,10 @@ import com.example.read.feature_home.data.remote.sources.recommendations.Recomme
 import com.example.read.feature_home.domain.models.BookItem
 import com.example.read.feature_home.domain.models.RecommendationItem
 import com.example.read.feature_home.domain.repositories.BooksRepository
-import com.example.read.utils.AppDispatchers
+import com.example.read.utils.dispatchers.AppDispatchers
 import com.example.read.utils.TimeDifference
 import com.example.read.utils.base.BaseRepository
-import com.example.read.utils.mapper.Mapper
+import com.example.read.utils.mappers.Mapper
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.map

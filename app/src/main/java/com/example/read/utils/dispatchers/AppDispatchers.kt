@@ -1,4 +1,4 @@
-package com.example.read.utils
+package com.example.read.utils.dispatchers
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

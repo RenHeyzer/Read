@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.example.read.utils.UiState
+import com.example.read.utils.state_holders.UiState
 
 @Composable
 fun <T : Any, S> S.ConfigureAsLazyPagingItemsState(

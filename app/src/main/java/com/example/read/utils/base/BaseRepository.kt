@@ -4,9 +4,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
-import com.example.read.utils.AppDispatchers
-import com.example.read.utils.Either
-import com.example.read.utils.mapper.Mappable
+import com.example.read.utils.dispatchers.AppDispatchers
+import com.example.read.utils.state_holders.Either
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow

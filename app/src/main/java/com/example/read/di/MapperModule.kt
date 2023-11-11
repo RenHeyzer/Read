@@ -8,11 +8,11 @@ import com.example.read.feature_home.data.remote.dtos.BookItemDto
 import com.example.read.feature_home.data.remote.dtos.RecommendationItemDto
 import com.example.read.feature_home.domain.models.BookItem
 import com.example.read.feature_home.domain.models.RecommendationItem
-import com.example.read.utils.mapper.BookItemMapper
-import com.example.read.utils.mapper.ChapterMapper
-import com.example.read.utils.mapper.InfoMapper
-import com.example.read.utils.mapper.Mapper
-import com.example.read.utils.mapper.RecommendationItemMapper
+import com.example.read.utils.mappers.BookItemMapper
+import com.example.read.utils.mappers.ChapterMapper
+import com.example.read.utils.mappers.InfoMapper
+import com.example.read.utils.mappers.Mapper
+import com.example.read.utils.mappers.RecommendationItemMapper
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

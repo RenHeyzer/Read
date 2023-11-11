@@ -1,7 +1,7 @@
 package com.example.read.feature_home.domain.models
 
 import com.example.read.feature_detail.domain.models.Chapter
-import com.example.read.utils.mapper.Mappable
+import com.example.read.utils.mappers.Mappable
 
 data class BookItem(
     val id: String? = null,
