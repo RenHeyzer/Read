@@ -1,9 +1,26 @@
 <resources>
     <string name="app_name">Read</string>
-    <string name="book_poster_image_content_description">poster image of a book</string>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <string name="back4app_application_id">BKJ1V32Y1wk3H4MxIjpbrA26U4HRfXuokJL6MQaW</string>
+    <string name="back4app_client_key">ZyUSgF7i6Oh5AdEoLFzmGQXL3ddsiCRgQebODQRp</string>
+    <string name="book_cover_image_content_description">Обложка книги</string>
+    <string name="recommendation_cover_image_content_description">Обложка рекомендованной книги</string>
     <string name="book_chapter_number_and_name_text">Глава %1$s - %2$s</string>
-    <string name="books">Главная</string>
-    <string name="bookmarks">Моё</string>
-    <string name="account">Аккаунт</string>
+    <string name="book_chapter_number_text">Глава %1$s</string>
+    <string name="screen_home">Главная</string>
+    <string name="screen_catalog">Каталог</string>
+    <string name="screen_bookmarks">Моё</string>
+    <string name="screen_profile">Аккаунт</string>
+    <string name="screen_detail">Аккаунт</string>
+    <string name="screen_home_recommendations_section">Рекомендуемые</string>
     <string name="error_message">Произошла ошибка!</string>
+    <string name="retry_icon_content_description">Попробовать снова</string>
+    <string name="search_icon_content_description">Иконка поиска</string>
+    <string name="clear_icon_content_description">Кнопка для очистки теста из строки поиска</string>
+    <string name="back_icon_content_description">Кнопка назад</string>
+    <string name="rating_icon_content_description">Иконка рейтинга</string>
+    <string name="manga_catalog">Манга</string>
+    <string name="comics_catalog">Комиксы</string>
+    <string name="button_read">Читать</string>
+    <string name="button_chapters">Главы</string>
 </resources>
