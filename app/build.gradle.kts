@@ -71,8 +71,6 @@ dependencies {
         implementation(activity.compose)
         implementation(platform(compose.bom))
         implementation(bundles.compose)
-        implementation(platform(firebase.bom))
-        implementation(bundles.firebase)
         implementation(coil.compose)
         implementation(bundles.paging)
         implementation(bundles.hilt)
@@ -80,7 +78,8 @@ dependencies {
         implementation(navigation.compose)
         implementation(accompanist.systemuicontroller)
         implementation(gson)
+        implementation(platform(supabase.bom))
+        implementation(supabase.storage.kt)
+        implementation(ktor.client)
     }
-    implementation("com.github.parse-community.Parse-SDK-Android:parse:4.2.1")
-    implementation("com.github.parse-community.Parse-SDK-Android:coroutines:4.2.1")
 }
