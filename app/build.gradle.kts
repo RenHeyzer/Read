@@ -4,6 +4,8 @@ plugins {
         alias(kotlin.android)
         alias(google.services)
         alias(kotlin.kapt)
+        alias(kotlin.serialization)
+        alias(kotlin.parcelize)
         alias(hilt.android)
     }
 }
@@ -26,6 +28,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -43,6 +52,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.2"
@@ -69,5 +79,8 @@ dependencies {
         kapt(hilt.android.compiler)
         implementation(navigation.compose)
         implementation(accompanist.systemuicontroller)
+        implementation(gson)
     }
+    implementation("com.github.parse-community.Parse-SDK-Android:parse:4.2.1")
+    implementation("com.github.parse-community.Parse-SDK-Android:coroutines:4.2.1")
 }
