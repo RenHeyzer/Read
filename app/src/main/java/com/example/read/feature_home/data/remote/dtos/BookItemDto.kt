@@ -1,40 +1,26 @@
 package com.example.read.feature_home.data.remote.dtos
 
 import com.example.read.feature_detail.data.remote.dtos.ChapterDto
-import com.example.read.feature_detail.data.remote.dtos.toChapterObject
 import com.example.read.utils.mappers.Mappable
-import com.parse.ParseObject
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class BookItemDto(
+    @SerialName("id")
     val id: String? = null,
+    @SerialName("title")
     val title: String? = null,
+    @SerialName("cover_image")
     val coverImage: String? = null,
+    @SerialName("release_year")
     val releaseYear: Int? = null,
+    @SerialName("status")
     val status: String? = null,
+    @SerialName("rating")
     val rating: Double? = null,
+    @SerialName("latest_chapter")
     val latestChapter: ChapterDto? = null,
+    @SerialName("info")
     val info: String? = null
 ) : Mappable
-
-fun ParseObject.toBookItemDto() =
-    BookItemDto(
-        id = objectId,
-        title = getString("title"),
-        coverImage = getString("cover_image"),
-        releaseYear = getInt("release_year"),
-        status = getString("status"),
-        rating = getDouble("rating"),
-        latestChapter = getParseObject("latest_chapter")?.fetchIfNeeded<ParseObject>()
-            ?.toChapterObject(),
-        info = getString("info")
-    )
-
-fun BookItemDto.toParseObject(className: String, latestChapter: ParseObject) = ParseObject(className).apply {
-    title?.let { put("title", it) }
-    coverImage?.let { put("cover_image", it) }
-    releaseYear?.let { put("release_year", it) }
-    status?.let { put("status", it) }
-    rating?.let { put("rating", it) }
-    put("latest_chapter", latestChapter)
-    id?.let { put("info", it) }
-}
