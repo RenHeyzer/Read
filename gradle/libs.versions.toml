@@ -15,7 +15,6 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-an
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin-android" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-android" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin-android" }
-google-services = { id = "com.google.gms.google-services", version.require = "4.4.0" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt-android" }
 
 [libraries]

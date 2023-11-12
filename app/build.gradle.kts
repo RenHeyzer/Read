@@ -2,7 +2,6 @@ plugins {
     libs.plugins.apply {
         alias(android.application)
         alias(kotlin.android)
-        alias(google.services)
         alias(kotlin.kapt)
         alias(kotlin.serialization)
         alias(kotlin.parcelize)
