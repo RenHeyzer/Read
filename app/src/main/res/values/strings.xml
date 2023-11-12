@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Read</string>
-    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
-    <string name="back4app_application_id">BKJ1V32Y1wk3H4MxIjpbrA26U4HRfXuokJL6MQaW</string>
-    <string name="back4app_client_key">ZyUSgF7i6Oh5AdEoLFzmGQXL3ddsiCRgQebODQRp</string>
     <string name="book_cover_image_content_description">Обложка книги</string>
     <string name="recommendation_cover_image_content_description">Обложка рекомендованной книги</string>
     <string name="book_chapter_number_and_name_text">Глава %1$s - %2$s</string>
