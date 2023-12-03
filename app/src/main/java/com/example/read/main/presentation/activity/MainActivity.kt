@@ -79,7 +79,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supabaseClient.handleDeeplinks(intent) { session ->
-            viewModel.updateUserSession(session.asDomain())
+            viewModel.updateUserSession(session)
         }
         setContent {
             ReadTheme {

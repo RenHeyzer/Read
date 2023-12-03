@@ -32,7 +32,7 @@ class BookmarksViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             userRepository.userSessionFlow.collectLatest { session ->
-                if (session.refreshToken.isNotEmpty() && session.user != null) {
+                if (session.user != null) {
                     _bookmarkTypeState.flatMapLatest {
                         bookmarksRepository.getBookmarks(it)
                     }.collectFlowAsPaging(_bookmarksState)

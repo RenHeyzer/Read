@@ -10,7 +10,8 @@ import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
-object UserSessionSerializer : Serializer<UserSession> {
+object UserSessionSerializer :
+    Serializer<UserSession> {
 
     override val defaultValue: UserSession = UserSession(
         accessToken = "",

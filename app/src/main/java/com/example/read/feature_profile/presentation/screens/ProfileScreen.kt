@@ -97,8 +97,9 @@ fun ProfileScreen(
                                         .align(Alignment.BottomEnd)
                                         .padding(bottom = 20.dp, end = 20.dp),
                                     onClick = {
-                                        viewModel.logout()
-                                        logout()
+                                        viewModel.logout {
+                                            logout()
+                                        }
                                     },
                                     shape = RoundedCornerShape(10.dp),
                                     border = BorderStroke(1.dp, Color.White)
@@ -161,8 +162,9 @@ fun ProfileScreen(
                                         .align(Alignment.BottomEnd)
                                         .padding(bottom = 20.dp, end = 20.dp),
                                     onClick = {
-                                        viewModel.logout()
-                                        logout()
+                                        viewModel.logout {
+                                            logout()
+                                        }
                                     },
                                     shape = RoundedCornerShape(10.dp),
                                     border = BorderStroke(1.dp, Color.White)

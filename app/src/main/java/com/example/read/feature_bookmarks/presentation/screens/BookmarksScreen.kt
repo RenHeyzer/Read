@@ -37,6 +37,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.read.feature_bookmarks.domain.models.BookmarkType
 import com.example.read.feature_home.presentation.components.BooksContent
+import com.example.read.main.presentation.Screen
 import com.example.read.ui.theme.ReadTheme
 import com.example.read.ui.theme.Rubik
 import com.example.read.utils.extensions.ConfigureAsLazyPagingItemsState
@@ -133,6 +134,9 @@ fun BookmarksScreen(
                 BooksContent(
                     modifier = Modifier.fillMaxSize(),
                     data = bookmarksPagingItems,
+                    onItemClick = { id ->
+                        navController.navigate(Screen.Detail.putIdArgument(id))
+                    }
                 )
             })
     }

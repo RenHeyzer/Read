@@ -73,7 +73,7 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun logout() {
+    fun logout(onSuccess: () -> Unit) {
         viewModelScope.launch {
             kotlin.runCatching {
                 userRepository.logout()
@@ -88,7 +88,7 @@ class ProfileViewModel @Inject constructor(
                 )
             }.onSuccess {
                 Log.e("logout", "success")
-                getUser()
+                onSuccess()
             }.onFailure {
                 it.message?.let { message ->
                     Log.e("logout", message)

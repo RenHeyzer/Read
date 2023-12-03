@@ -26,6 +26,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val userRepository: UserRepository,
+    private val userSessionManager: UserSessionManager,
     private val bookRepository: BooksRepository,
 ) : BaseViewModel() {
 
@@ -36,7 +37,7 @@ class MainViewModel @Inject constructor(
         savedStateHandle.getStateFlow(HomeViewModel.SEARCH_QUERY_KEY, String())
 
     init {
-        refreshUser()
+//        refreshUser()
         searchQueryState.flatMapLatest { searchQuery ->
             if (searchQuery.isNotEmpty()) {
                 bookRepository.getBooks(searchQuery)
@@ -48,9 +49,9 @@ class MainViewModel @Inject constructor(
         savedStateHandle[HomeViewModel.SEARCH_QUERY_KEY] = searchQuery
     }
 
-    fun updateUserSession(userSession: UserSession) {
+    fun updateUserSession(userSession: io.github.jan.supabase.gotrue.user.UserSession) {
         viewModelScope.launch {
-            userRepository.updateUserSession(userSession)
+            userSessionManager.updateUserSessionPreferences(userSession)
         }
     }
 
@@ -62,7 +63,7 @@ class MainViewModel @Inject constructor(
                         kotlin.runCatching {
                             userRepository.getRefreshedSession(session.refreshToken)
                         }.onSuccess { session ->
-                            updateUserSession(session)
+//                            updateUserSession(session)
                         }.onFailure {
                             it.printStackTrace()
                         }
