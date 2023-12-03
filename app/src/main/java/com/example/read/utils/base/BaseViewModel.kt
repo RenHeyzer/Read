@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel : ViewModel() {
 
     protected open fun <T : Any> Flow<PagingData<T>>.collectFlowAsPaging(
-        state: MutableStateFlow<PagingData<T>>
+        state: MutableStateFlow<PagingData<T>>,
     ) {
         viewModelScope.launch {
             this@collectFlowAsPaging.cachedIn(viewModelScope).collect {
@@ -28,12 +28,17 @@ abstract class BaseViewModel : ViewModel() {
         viewModelScope.launch {
             this@collectFlowAsState.collect {
                 when (it) {
-                    is Either.Left -> it.message?.let { message ->
-                        state.value = UiState.Error(message)
+                    is Either.Left -> {
+                        it.message?.let { message ->
+                            state.value = UiState.Error(message)
+
+                        }
                     }
 
-                    is Either.Right -> it.data?.let { data ->
-                        state.value = UiState.Success(data)
+                    is Either.Right -> {
+                        it.data?.let { data ->
+                            state.value = UiState.Success(data)
+                        }
                     }
                 }
             }

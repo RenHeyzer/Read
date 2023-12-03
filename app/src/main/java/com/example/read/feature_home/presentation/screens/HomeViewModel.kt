@@ -1,18 +1,18 @@
 package com.example.read.feature_home.presentation.screens
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.example.read.feature_home.domain.models.BookItem
 import com.example.read.feature_home.domain.models.RecommendationItem
 import com.example.read.feature_home.domain.repositories.BooksRepository
-import com.example.read.utils.state_holders.UiState
+import com.example.read.feature_home.presentation.models.LoadingState
+import com.example.read.feature_home.presentation.models.LoadingType
 import com.example.read.utils.base.BaseViewModel
+import com.example.read.utils.state_holders.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,24 +31,25 @@ class HomeViewModel @Inject constructor(
         MutableStateFlow<UiState<List<RecommendationItem>>>(UiState.Loading())
     val slidesState = _slidesState.asStateFlow()
 
-    private val searchQueryState = savedStateHandle.getStateFlow(SEARCH_QUERY_KEY, String())
+    private val _loadingState = MutableStateFlow(LoadingState())
+    val loadingState = _loadingState.asStateFlow()
 
     init {
-        bookRepository.fetchRecommendationSlides().collectFlowAsState(_slidesState)
-        bookRepository.fetchRecommendations().collectFlowAsPaging(_recommendationsState)
-
-        searchQueryState.flatMapLatest { searchQuery ->
-            bookRepository.fetchBooks(searchQuery)
-        }.collectFlowAsPaging(_booksState)
+        bookRepository.getRecommendationSlides().collectFlowAsState(_slidesState)
+        bookRepository.getRecommendations().collectFlowAsPaging(_recommendationsState)
+        bookRepository.getBooks("").collectFlowAsPaging(_booksState)
     }
 
-    fun setSearchQuery(searchQuery: String) {
-        savedStateHandle[SEARCH_QUERY_KEY] = searchQuery
-    }
+    fun updateBooksLoadingState(type: LoadingType) {
+        when (type) {
+            is LoadingType.Books -> _loadingState.value =
+                loadingState.value.copy(booksLoading = type.value)
 
-    fun addBooks(item: BookItem) {
-        viewModelScope.launch {
-            bookRepository.addBooks(item)
+            is LoadingType.Recommendations -> _loadingState.value =
+                loadingState.value.copy(recommendationsLoading = type.value)
+
+            is LoadingType.Slides -> _loadingState.value =
+                loadingState.value.copy(slidesLoading = type.value)
         }
     }
 

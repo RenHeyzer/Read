@@ -7,7 +7,7 @@ compose-material = "1.5.4"
 paging = "3.2.1"
 hilt-android = "2.48"
 navigation = "2.7.5"
-supabse = "1.4.7"
+supabase = "1.4.7"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -51,18 +51,23 @@ hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-comp
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.require = "0.33.2-alpha" }
 
 #Gson
-gson = { group = "com.google.code.gson", name = "gson", version.require = "2.10.1"}
+gson = { group = "com.google.code.gson", name = "gson", version.require = "2.10.1" }
 
 #Supabase
-supabase-bom = { group = "io.github.jan-tennert.supabase", name = "bom", version.ref = "supabse" }
+supabase-bom = { group = "io.github.jan-tennert.supabase", name = "bom", version.ref = "supabase" }
 supabase-postgrest-kt = { group = "io.github.jan-tennert.supabase", name = "postgrest-kt" }
 supabase-storage-kt = { group = "io.github.jan-tennert.supabase", name = "storage-kt" }
+supabase-compose-auth = { group = "io.github.jan-tennert.supabase", name = "compose-auth" }
 
 #Ktor Client
-ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.require = "2.3.6"}
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.require = "2.3.6" }
+
+#DataStore
+proto-data-store = { group = "androidx.datastore", name = "datastore", version.require = "1.0.0" }
+preferences-data-store = { group = "androidx.datastore", name = "datastore-preferences", version.require = "1.0.0" }
 
 [bundles]
 compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-ui-test-junit4", "compose-ui-tooling", "compose-ui-test-manifest", "compose-material", "compose-material-icons"]
 hilt = ["hilt-compose", "hilt-android"]
 paging = ["paging-runtime", "paging-compose"]
-supabse = ["supabase-postgrest-kt", "supabase-storage-kt"]
+supabase = ["supabase-postgrest-kt", "supabase-storage-kt", "supabase-compose-auth"]

@@ -4,5 +4,5 @@ import com.example.read.feature_home.data.remote.dtos.BookItemDto
 
 interface BooksRemoteDataSource {
 
-    suspend fun getBooks(offset: Long, limit: Long): List<BookItemDto>
+    suspend fun getBooks(offset: Long, limit: Long, searchQuery: String): List<BookItemDto>
 }

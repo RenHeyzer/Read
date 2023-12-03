@@ -88,7 +88,8 @@ dependencies {
         implementation(accompanist.systemuicontroller)
         implementation(gson)
         implementation(platform(supabase.bom))
-        implementation(bundles.supabse)
+        implementation(bundles.supabase)
         implementation(ktor.client.android)
+        implementation(preferences.data.store)
     }
 }

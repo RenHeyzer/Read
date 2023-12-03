@@ -3,17 +3,16 @@ package com.example.read.ui.theme
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
-val PurpleVertical = Brush.verticalGradient(
-    listOf(Purple90, DarkPurple90)
+val PurpleVerticalToBottom = Brush.verticalGradient(
+    listOf(Purple50, Purple60, Purple70)
 )
 
-val DarkPurpleVertical = Brush.verticalGradient(
-    listOf(
-        DarkPurple,
-        DarkPurple50,
-        DarkPurple50,
-        DarkPurple
-    )
+val PurpleVerticalToTop = Brush.verticalGradient(
+    listOf(Purple70, Purple60, Purple50)
+)
+
+val PurpleHorizontal = Brush.horizontalGradient(
+    listOf(Purple50, Purple60),
 )
 
 val WhiteVertical = Brush.verticalGradient(

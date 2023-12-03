@@ -8,6 +8,7 @@ import com.example.read.feature_home.data.remote.dtos.BookItemDto
 import com.example.read.feature_home.data.remote.dtos.RecommendationItemDto
 import com.example.read.feature_home.domain.models.BookItem
 import com.example.read.feature_home.domain.models.RecommendationItem
+import com.example.read.feature_profile.domain.models.User
 import com.example.read.utils.mappers.BookItemMapper
 import com.example.read.utils.mappers.ChapterMapper
 import com.example.read.utils.mappers.InfoMapper

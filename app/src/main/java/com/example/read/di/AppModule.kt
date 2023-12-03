@@ -1,12 +1,18 @@
 package com.example.read.di
 
+import com.example.read.BuildConfig
 import com.example.read.utils.dispatchers.AppDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
+import io.github.jan.supabase.gotrue.GoTrue
+import io.github.jan.supabase.gotrue.gotrue
 import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.postgrest.PropertyConversionMethod
+import io.github.jan.supabase.postgrest.postgrest
 import javax.inject.Singleton
 
 @Module
@@ -19,10 +25,26 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providedSupabaseClient() = createSupabaseClient(
-        supabaseUrl = "https://ckipllpkakxblzzpkjnj.supabase.co",
-        supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNraXBsbHBrYWt4Ymx6enBram5qIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTkxOTM1MDQsImV4cCI6MjAxNDc2OTUwNH0.geF38px8D4TddS5Tlp3NYpGxqwlKoucRRlEUY3MZqfE"
+    fun provideSupabaseClient() = createSupabaseClient(
+        supabaseUrl = BuildConfig.supabaseUrl,
+        supabaseKey = BuildConfig.supabaseKey
     ) {
-        install(Postgrest)
+        install(Postgrest) {
+            propertyConversionMethod = PropertyConversionMethod.SERIAL_NAME
+        }
+        install(GoTrue) {
+            host = BuildConfig.APPLICATION_ID
+            scheme = "app"
+            alwaysAutoRefresh = false
+            autoLoadFromStorage = false
+        }
     }
+
+    @Provides
+    @Singleton
+    fun providePostgrest(supabaseClient: SupabaseClient) = supabaseClient.postgrest
+
+    @Provides
+    @Singleton
+    fun provideGoTrue(supabaseClient: SupabaseClient) = supabaseClient.gotrue
 }

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface CatalogRepository {
 
-    fun fetchComics(): Flow<PagingData<BookItem>>
+    fun getComics(searchQuery: String): Flow<PagingData<BookItem>>
 
-    fun fetchManga(): Flow<PagingData<BookItem>>
+    fun getManga(searchQuery: String): Flow<PagingData<BookItem>>
 }

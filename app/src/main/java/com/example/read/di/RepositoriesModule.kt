@@ -6,6 +6,10 @@ import com.example.read.feature_detail.data.repositories.BookInfoRepositoryImpl
 import com.example.read.feature_detail.domain.repositories.BookInfoRepository
 import com.example.read.feature_home.data.repositories.BooksRepositoryImpl
 import com.example.read.feature_home.domain.repositories.BooksRepository
+import com.example.read.feature_login.data.repositories.LoginRepositoryImpl
+import com.example.read.feature_login.domain.repositories.LoginRepository
+import com.example.read.feature_profile.data.repositories.UserRepositoryImpl
+import com.example.read.feature_profile.domain.repositories.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,4 +27,10 @@ interface RepositoriesModule {
 
     @Binds
     fun bindBookInfoRepository(repositoryImpl: BookInfoRepositoryImpl): BookInfoRepository
+    
+    @Binds
+    fun bindLoginRepository(repositoryImpl: LoginRepositoryImpl): LoginRepository
+
+    @Binds
+    fun bindUserRepository(repositoryImpl: UserRepositoryImpl): UserRepository
 }

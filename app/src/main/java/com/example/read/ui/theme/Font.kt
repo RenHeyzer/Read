@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import com.example.read.R
 
-val rubikFamily = FontFamily(
+val Rubik = FontFamily(
     Font(R.font.rubik_regular, FontWeight.Normal, FontStyle.Normal),
     Font(R.font.rubik_medium, FontWeight.Medium, FontStyle.Normal),
     Font(R.font.rubik_medium_italic, FontWeight.Medium, FontStyle.Italic),

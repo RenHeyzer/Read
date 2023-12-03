@@ -3,6 +3,7 @@ package com.example.read.utils.mappers
 import com.example.read.feature_detail.data.remote.dtos.ChapterDto
 import com.example.read.feature_detail.domain.models.Chapter
 import com.example.read.feature_home.data.remote.dtos.BookItemDto
+import com.example.read.feature_home.data.remote.dtos.LatestChapter
 import com.example.read.feature_home.domain.models.BookItem
 import javax.inject.Inject
 
@@ -12,23 +13,25 @@ class BookItemMapper @Inject constructor(
 
     override fun to(model: BookItemDto) = BookItem(
         id = model.id,
+        createdAt = model.createdAt,
         title = model.title,
         coverImage = model.coverImage,
         releaseYear = model.releaseYear,
         status = model.status,
         rating = model.rating,
-        latestChapter = model.latestChapter?.let { chapterMapper.to(model = it) },
+        latestChapter = model.latestChapter?.latest?.let { chapterMapper.to(model = it) },
         info = model.info
     )
 
     override fun from(model: BookItem) = BookItemDto(
         id = model.id,
+        createdAt = model.createdAt,
         title = model.title,
         coverImage = model.coverImage,
         releaseYear = model.releaseYear,
         status = model.status,
         rating = model.rating,
-        latestChapter = model.latestChapter?.let { chapterMapper.from(model = it) },
+        latestChapter = LatestChapter(model.latestChapter?.let { chapterMapper.from(model = it) }),
         info = model.info
     )
 }

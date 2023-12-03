@@ -12,6 +12,7 @@ class InfoMapper @Inject constructor(
 
     override fun to(model: InfoDto) = Info(
         id = model.id,
+        createdAt = model.createdAt,
         title = model.title,
         description = model.description,
         coverImage = model.coverImage,
@@ -28,6 +29,7 @@ class InfoMapper @Inject constructor(
 
     override fun from(model: Info) = InfoDto(
         id = model.id,
+        createdAt = model.createdAt,
         title = model.title,
         description = model.description,
         coverImage = model.coverImage,
