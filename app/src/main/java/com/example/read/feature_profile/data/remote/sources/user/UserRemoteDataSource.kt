@@ -7,7 +7,7 @@ interface UserRemoteDataSource {
 
     suspend fun getUser(): UserInfo?
 
-    suspend fun getRefreshedUser(refreshToken: String): UserSession
+    suspend fun getRefreshedSession(refreshToken: String): UserSession
 
     suspend fun logout()
 }

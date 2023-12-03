@@ -122,7 +122,7 @@ fun TopContent(
 
         AsyncImage(
             modifier = Modifier
-                .padding(top = 20.dp)
+                .padding(top = 5.dp)
                 .width(124.dp)
                 .height(184.dp)
                 .align(Alignment.TopCenter)

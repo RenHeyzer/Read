@@ -1,5 +1,7 @@
 package com.example.read.feature_bookmarks.data.remote.sources
 
+import com.example.read.feature_bookmarks.data.remote.dtos.BookmarkDto
+import com.example.read.feature_bookmarks.data.remote.dtos.BookmarkResponseDto
 import com.example.read.feature_bookmarks.domain.models.BookmarkType
 import com.example.read.feature_home.data.remote.dtos.BookItemDto
 import com.example.read.utils.constants.Constants
@@ -18,5 +20,9 @@ class BookmarksRemoteDataSourceImpl @Inject constructor(
             eq(column = "bookmark_type", value = bookmarkType.type)
         }
         range(offset, limit)
-    }.decodeList<BookItemDto>()
+    }.decodeList<BookmarkResponseDto>()
+
+    override suspend fun addBookToBookmark(bookmark: BookmarkDto) {
+        postgrest[Constants.BOOKMARKS_TABLE_NAME].insert(bookmark)
+    }
 }

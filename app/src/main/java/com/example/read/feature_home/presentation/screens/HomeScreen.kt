@@ -65,7 +65,7 @@ fun HomeScreen(
 
     val height by animateDpAsState(
         label = "collapsed height",
-        targetValue = if (listState.canScrollBackward) 0.dp else 500.dp,
+        targetValue = if (listState.canScrollBackward) 0.dp else 480.dp,
         animationSpec = tween(durationMillis = 300)
     )
 

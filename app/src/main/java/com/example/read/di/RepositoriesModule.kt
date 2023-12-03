@@ -1,5 +1,7 @@
 package com.example.read.di
 
+import com.example.read.feature_bookmarks.data.repositories.BookmarksRepositoryImpl
+import com.example.read.feature_bookmarks.domain.repositories.BookmarksRepository
 import com.example.read.feature_catalog.data.repositories.CatalogRepositoryImpl
 import com.example.read.feature_catalog.domain.repositories.CatalogRepository
 import com.example.read.feature_detail.data.repositories.BookInfoRepositoryImpl
@@ -33,4 +35,7 @@ interface RepositoriesModule {
 
     @Binds
     fun bindUserRepository(repositoryImpl: UserRepositoryImpl): UserRepository
+
+    @Binds
+    fun bindBookmarksRepository(repositoryImpl: BookmarksRepositoryImpl): BookmarksRepository
 }

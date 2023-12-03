@@ -8,7 +8,7 @@ interface UserRepository {
 
     suspend fun getUser(): User?
 
-    suspend fun getRefreshedUser(refreshToken: String): UserSession
+    suspend fun getRefreshedSession(refreshToken: String): UserSession
 
     val userSessionFlow: Flow<UserSession>
 

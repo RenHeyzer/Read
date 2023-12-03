@@ -62,6 +62,7 @@ import com.example.read.main.presentation.Screen
 import com.example.read.ui.theme.Purple50
 import com.example.read.ui.theme.ReadTheme
 import com.example.read.ui.theme.Rubik
+import com.example.read.utils.mappers.asDomain
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.handleDeeplinks
@@ -78,7 +79,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supabaseClient.handleDeeplinks(intent) { session ->
-            viewModel.updateUserSession(session)
+            viewModel.updateUserSession(session.asDomain())
         }
         setContent {
             ReadTheme {
@@ -236,7 +237,10 @@ class MainActivity : ComponentActivity() {
                                 ProfileScreen(
                                     modifier = Modifier
                                         .fillMaxSize(),
-                                    navController = navController
+                                    navController = navController,
+                                    logout = {
+                                        recreate()
+                                    }
                                 )
                             }
                             composable(
@@ -249,6 +253,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier
                                         .fillMaxSize(),
                                     navController = navController,
+                                    snackbarHostState = snackbarHostState
                                 )
                             }
                             composable(Screen.SignUp.route) {

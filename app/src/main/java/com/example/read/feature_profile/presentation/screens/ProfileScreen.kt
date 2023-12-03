@@ -55,7 +55,8 @@ import com.example.read.utils.state_holders.UiState
 fun ProfileScreen(
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel = hiltViewModel(),
-    navController: NavHostController
+    navController: NavHostController,
+    logout: () -> Unit
 ) {
     val userState by viewModel.userState.collectAsState()
 
@@ -97,6 +98,7 @@ fun ProfileScreen(
                                         .padding(bottom = 20.dp, end = 20.dp),
                                     onClick = {
                                         viewModel.logout()
+                                        logout()
                                     },
                                     shape = RoundedCornerShape(10.dp),
                                     border = BorderStroke(1.dp, Color.White)
@@ -160,6 +162,7 @@ fun ProfileScreen(
                                         .padding(bottom = 20.dp, end = 20.dp),
                                     onClick = {
                                         viewModel.logout()
+                                        logout()
                                     },
                                     shape = RoundedCornerShape(10.dp),
                                     border = BorderStroke(1.dp, Color.White)
@@ -190,7 +193,7 @@ fun PreviewProfile() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            ProfileScreen(navController = rememberNavController())
+            ProfileScreen(navController = rememberNavController(), logout = {})
         }
     }
 }

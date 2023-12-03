@@ -63,8 +63,15 @@ fun BookmarksScreen(
     var selectedItemIndex by rememberSaveable {
         mutableIntStateOf(0)
     }
+    var isLoading by rememberSaveable {
+        mutableStateOf(true)
+    }
 
     val bookmarksPagingItems = viewModel.bookmarksState.collectAsLazyPagingItems()
+
+    if (isLoading) {
+        LoadingIndicator()
+    }
 
     Column(modifier) {
         Card(
@@ -115,12 +122,14 @@ fun BookmarksScreen(
             pagingItems = bookmarksPagingItems,
             loadState = bookmarksPagingItems.loadState.refresh,
             loading = {
-                LoadingIndicator()
+                isLoading = true
             },
             error = {
+                isLoading = false
                 Log.e("error", it)
             },
             notLoading = {
+                isLoading = false
                 BooksContent(
                     modifier = Modifier.fillMaxSize(),
                     data = bookmarksPagingItems,

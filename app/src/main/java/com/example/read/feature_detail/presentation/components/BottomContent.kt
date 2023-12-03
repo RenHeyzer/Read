@@ -55,7 +55,7 @@ fun BottomContent(modifier: Modifier = Modifier) {
             ) {
                 Text(
                     text = stringResource(R.string.button_chapters),
-                    fontSize = 10.sp,
+                    fontSize = 20.sp,
                     color = Color.Black,
                     fontFamily = Rubik,
                     fontWeight = FontWeight.ExtraBold
@@ -87,7 +87,7 @@ fun BottomContent(modifier: Modifier = Modifier) {
             ) {
                 Text(
                     text = stringResource(R.string.button_read),
-                    fontSize = 10.sp,
+                    fontSize = 20.sp,
                     color = Color.White,
                     fontFamily = Rubik,
                     fontWeight = FontWeight.ExtraBold

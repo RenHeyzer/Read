@@ -42,4 +42,7 @@
     <string name="send_confirmation_again">Отправить ещё раз</string>
     <string name="profile_image_content_description">Фото профиля</string>
     <string name="search_text_field_text">Поиск</string>
+    <string name="add_book_to_bookmark_success">Добавлено в закладки!</string>
+    <string name="add_book_to_bookmark_auth_failure">Чтобы добавлять в закладки, нужно быть зарегистрированным!</string>
+    <string name="add_book_to_bookmark_default" />
 </resources>

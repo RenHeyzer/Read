@@ -22,9 +22,6 @@ class ProfileViewModel @Inject constructor(
     private val _userState = MutableStateFlow<UserUiState>(UserUiState.Loading)
     val userState = _userState.asStateFlow()
 
-    private val _guestUsernameState = MutableStateFlow("Пользователь0")
-    val guestUsernameState = _guestUsernameState.asStateFlow()
-
     init {
         getUser()
     }
@@ -52,18 +49,8 @@ class ProfileViewModel @Inject constructor(
     fun getRefreshedUser() {
         viewModelScope.launch {
             userRepository.userSessionFlow.collectLatest { session ->
-                if (session.refreshToken.isNotEmpty()) {
-                    launch {
-                        kotlin.runCatching {
-                            userRepository.getRefreshedUser(session.refreshToken)
-                        }.onSuccess { session ->
-                            session.user?.let { user ->
-                                _userState.value = UserUiState.RefreshedUser(user)
-                            }
-                        }.onFailure {
-                            _userState.value = UserUiState.Error(it.message)
-                        }
-                    }
+                if (session.refreshToken.isNotEmpty() && session.user != null) {
+                    _userState.value = UserUiState.RefreshedUser(session.user)
                 } else {
                     getGuestUsername()
                 }

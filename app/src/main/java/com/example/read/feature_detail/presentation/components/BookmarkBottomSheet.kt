@@ -1,5 +1,6 @@
 package com.example.read.feature_detail.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -13,6 +14,8 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -24,10 +27,14 @@ import com.example.read.ui.theme.Rubik
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookmarkBottomSheet(modifier: Modifier, onDismissRequest: () -> Unit, sheetState: SheetState, onSelect: (BookmarkType) -> Unit) {
+fun BookmarkBottomSheet(
+    modifier: Modifier,
+    onDismissRequest: () -> Unit,
+    sheetState: SheetState,
+    onSelect: (BookmarkType) -> Unit
+) {
 
     val bookmarkItems = listOf(
-        BookmarkType.All,
         BookmarkType.READING,
         BookmarkType.READ,
         BookmarkType.IN_THE_PLANS,
@@ -35,31 +42,37 @@ fun BookmarkBottomSheet(modifier: Modifier, onDismissRequest: () -> Unit, sheetS
         BookmarkType.FAVORITES,
     )
 
-    var selected by remember {
-        mutableStateOf(false)
+    val selected = remember {
+        mutableStateMapOf(
+            BookmarkType.READING.name to false,
+            BookmarkType.READ.name to false,
+            BookmarkType.IN_THE_PLANS.name to false,
+            BookmarkType.ABANDONED.name to false,
+            BookmarkType.FAVORITES.name to false,
+        )
     }
 
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
         sheetState = sheetState
     ) {
-        bookmarkItems.forEach {
+        bookmarkItems.forEach { type ->
             FilterChip(
                 modifier = Modifier.fillMaxWidth(),
-                selected = selected,
+                selected = if (selected[type.name] != null) selected[type.name]!! else false,
                 onClick = {
-                    selected = !selected
-                    onSelect(it)
+                    selected[type.name] = if (selected[type.name] != null) !selected[type.name]!! else false
+                    onSelect(type)
                 },
                 label = {
                     Text(
-                        text = it.type,
+                        text = type.type,
                         fontSize = 12.sp,
                         fontFamily = Rubik,
                         fontWeight = FontWeight.Normal
                     )
                 },
-                leadingIcon = if (selected) {
+                leadingIcon = if (selected[type.name] == true) {
                     {
                         Icon(
                             imageVector = Icons.Filled.Done,

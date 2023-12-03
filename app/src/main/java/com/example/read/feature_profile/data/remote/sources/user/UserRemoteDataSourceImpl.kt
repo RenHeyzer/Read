@@ -13,7 +13,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
         return gotrue.currentUserOrNull()
     }
 
-    override suspend fun getRefreshedUser(refreshToken: String) =
+    override suspend fun getRefreshedSession(refreshToken: String) =
         gotrue.refreshSession(refreshToken)
 
     override suspend fun logout() {

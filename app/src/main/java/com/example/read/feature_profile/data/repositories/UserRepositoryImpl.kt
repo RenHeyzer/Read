@@ -25,8 +25,8 @@ class UserRepositoryImpl @Inject constructor(
         userRemoteDataSource.getUser()?.asDomain()
     }
 
-    override suspend fun getRefreshedUser(refreshToken: String) =
-        userRemoteDataSource.getRefreshedUser(refreshToken).asDomain()
+    override suspend fun getRefreshedSession(refreshToken: String) =
+        userRemoteDataSource.getRefreshedSession(refreshToken).asDomain()
 
     override val userSessionFlow: Flow<UserSession>
         get() = userSessionManager.userSessionFlow.map {
