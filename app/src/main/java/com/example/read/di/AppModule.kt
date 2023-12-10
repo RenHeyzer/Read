@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.jan.supabase.SupabaseClient
+import io.github.jan.supabase.compose.auth.composeAuth
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
 import io.github.jan.supabase.gotrue.gotrue
@@ -33,10 +34,10 @@ object AppModule {
             propertyConversionMethod = PropertyConversionMethod.SERIAL_NAME
         }
         install(GoTrue) {
-            host = BuildConfig.APPLICATION_ID
             scheme = "app"
-            alwaysAutoRefresh = false
-            autoLoadFromStorage = false
+            host = BuildConfig.APPLICATION_ID
+          /*  alwaysAutoRefresh = false
+            autoLoadFromStorage = false*/
         }
     }
 

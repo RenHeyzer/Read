@@ -1,5 +1,7 @@
 package com.example.read.di
 
+import com.example.read.feature_bookmarks.data.remote.dtos.BookmarkDto
+import com.example.read.feature_bookmarks.domain.models.Bookmark
 import com.example.read.feature_detail.data.remote.dtos.ChapterDto
 import com.example.read.feature_detail.data.remote.dtos.InfoDto
 import com.example.read.feature_detail.domain.models.Chapter
@@ -8,8 +10,8 @@ import com.example.read.feature_home.data.remote.dtos.BookItemDto
 import com.example.read.feature_home.data.remote.dtos.RecommendationItemDto
 import com.example.read.feature_home.domain.models.BookItem
 import com.example.read.feature_home.domain.models.RecommendationItem
-import com.example.read.feature_profile.domain.models.User
 import com.example.read.utils.mappers.BookItemMapper
+import com.example.read.utils.mappers.BookmarkMapper
 import com.example.read.utils.mappers.ChapterMapper
 import com.example.read.utils.mappers.InfoMapper
 import com.example.read.utils.mappers.Mapper
@@ -34,4 +36,7 @@ interface MapperModule {
 
     @Binds
     fun bindRecommendationItemMapper(mapper: RecommendationItemMapper): Mapper<RecommendationItemDto, RecommendationItem>
+
+    @Binds
+    fun bindBookmarkMapper(mapper: BookmarkMapper): Mapper<BookmarkDto, Bookmark>
 }

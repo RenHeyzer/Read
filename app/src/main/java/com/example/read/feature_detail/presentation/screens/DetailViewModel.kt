@@ -1,20 +1,25 @@
 package com.example.read.feature_detail.presentation.screens
 
 import android.util.Log
+import androidx.annotation.StringRes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.example.read.R
 import com.example.read.feature_bookmarks.domain.models.Bookmark
+import com.example.read.feature_bookmarks.domain.models.BookmarkType
 import com.example.read.feature_bookmarks.domain.repositories.BookmarksRepository
 import com.example.read.feature_detail.domain.models.Info
 import com.example.read.feature_detail.domain.repositories.BookInfoRepository
-import com.example.read.feature_detail.presentation.models.BookmarkStatus
-import com.example.read.feature_profile.domain.repositories.UserRepository
-import com.example.read.utils.state_holders.UiState
+import com.example.read.feature_detail.domain.usecases.AddBookToBookmarkUseCase
+import com.example.read.feature_detail.domain.usecases.BookmarkResult
 import com.example.read.utils.base.BaseViewModel
+import com.example.read.utils.state_holders.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,14 +28,15 @@ class DetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val bookInfoRepository: BookInfoRepository,
     private val bookmarksRepository: BookmarksRepository,
-    private val userRepository: UserRepository,
+    private val addBookToBookmark: AddBookToBookmarkUseCase
 ) : BaseViewModel() {
 
     private val _infoState = MutableStateFlow<UiState<Info>>(UiState.Loading())
     val infoState = _infoState.asStateFlow()
 
-    private val _bookmarkStatus = MutableStateFlow<BookmarkStatus>(BookmarkStatus.Default)
-    val bookmarkStatus = _bookmarkStatus.asStateFlow()
+    private val _bookmarkStatus =
+        MutableSharedFlow<BookmarkStatus>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val bookmarkStatus = _bookmarkStatus.asSharedFlow()
 
     private val _sessionStatus = MutableStateFlow(false)
     val sessionStatus = _sessionStatus.asStateFlow()
@@ -39,7 +45,6 @@ class DetailViewModel @Inject constructor(
 
     init {
         getBookInfo()
-        getUser()
     }
 
     fun getBookInfo() {
@@ -58,39 +63,46 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun addBookToBookmark(bookmark: Bookmark, onSuccess: () -> Unit) {
-        viewModelScope.launch {
-            kotlin.runCatching {
-                bookmarksRepository.addBookToBookmark(bookmark)
-            }.onSuccess {
-                onSuccess()
-            }.onFailure {
-                it.printStackTrace()
-                it.message?.let { message ->
-                    Log.e("bookmark", message)
-                }
+    fun addBookToBookmark(id: String, type: BookmarkType) {
+        val bookmark = Bookmark(id, type.type)
+        when (type) {
+            BookmarkType.READING -> {
+                handleAddToBookmarkResult(bookmark)
             }
-        }
-    }
 
-    fun getUser() {
-        viewModelScope.launch {
-            userRepository.userSessionFlow.collectLatest { session ->
-                _sessionStatus.value = session.refreshToken.isNotEmpty() && session.user != null
+            BookmarkType.READ -> {
+                handleAddToBookmarkResult(bookmark)
             }
-        }
-    }
 
-    fun changeBookmarkStatus(bookmarkStatus: BookmarkStatus) {
-        when (bookmarkStatus) {
-            is BookmarkStatus.Success -> {
-                _bookmarkStatus.value = bookmarkStatus
+            BookmarkType.IN_THE_PLANS -> {
+                handleAddToBookmarkResult(bookmark)
             }
-            is BookmarkStatus.AuthFailure -> {
-                _bookmarkStatus.value = bookmarkStatus
+
+            BookmarkType.ABANDONED -> {
+                handleAddToBookmarkResult(bookmark)
             }
+
+            BookmarkType.FAVORITES -> {
+                handleAddToBookmarkResult(bookmark)
+            }
+
             else -> {
-                _bookmarkStatus.value = bookmarkStatus
+                handleAddToBookmarkResult(bookmark)
+            }
+        }
+    }
+
+    fun handleAddToBookmarkResult(bookmark: Bookmark) {
+        viewModelScope.launch {
+            when (val result = addBookToBookmark.invoke(bookmark)) {
+                BookmarkResult.Success -> _bookmarkStatus.emit(BookmarkStatus.Success)
+                BookmarkResult.AuthFailure -> _bookmarkStatus.emit(BookmarkStatus.AuthFailure())
+                is BookmarkResult.Error -> {
+                    Log.e("add_bookmark", result.message)
+                    _bookmarkStatus.emit(BookmarkStatus.Error)
+                }
+
+                BookmarkResult.Else -> _bookmarkStatus.emit(BookmarkStatus.Error)
             }
         }
     }
@@ -98,4 +110,15 @@ class DetailViewModel @Inject constructor(
     companion object {
         const val INFO_ID_KEY = "id"
     }
+}
+
+sealed class BookmarkStatus(@StringRes val message: Int) {
+
+    data object Default: BookmarkStatus(R.string.add_book_to_bookmark_default)
+
+    data object Success : BookmarkStatus(R.string.add_book_to_bookmark_success)
+
+    class AuthFailure : BookmarkStatus(R.string.bookmark_auth_failure)
+
+    data object Error : BookmarkStatus(R.string.error_message)
 }

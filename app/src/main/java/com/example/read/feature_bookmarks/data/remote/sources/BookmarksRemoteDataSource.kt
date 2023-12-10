@@ -9,5 +9,7 @@ interface BookmarksRemoteDataSource {
 
     suspend fun getBookmarks(offset: Long, limit: Long, bookmarkType: BookmarkType): List<BookmarkResponseDto>
 
-    suspend fun addBookToBookmark(bookmark: BookmarkDto)
+    suspend fun addBookToBookmark(bookmark: BookmarkDto, upsert: Boolean = false)
+
+    suspend fun checkBookInBookmarks(id: String): BookmarkDto?
 }

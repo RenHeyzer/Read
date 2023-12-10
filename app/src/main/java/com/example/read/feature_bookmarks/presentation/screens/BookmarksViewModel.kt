@@ -6,12 +6,11 @@ import androidx.paging.PagingData
 import com.example.read.feature_bookmarks.domain.models.BookmarkType
 import com.example.read.feature_bookmarks.domain.repositories.BookmarksRepository
 import com.example.read.feature_home.domain.models.BookItem
-import com.example.read.feature_profile.domain.repositories.UserRepository
+import com.example.read.feature_profile.domain.repositories.ProfileRepository
 import com.example.read.utils.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,8 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class BookmarksViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val bookmarksRepository: BookmarksRepository,
-    private val userRepository: UserRepository
+    private val userRepository: ProfileRepository,
+    private val bookmarksRepository: BookmarksRepository
 ) : BaseViewModel() {
 
     private val _bookmarksState = MutableStateFlow(PagingData.empty<BookItem>())
@@ -29,15 +28,21 @@ class BookmarksViewModel @Inject constructor(
     private val _bookmarkTypeState =
         savedStateHandle.getStateFlow(BOOKMARK_TYPE_KEY, BookmarkType.All)
 
+    private val _notAuthenticatedState = MutableStateFlow(false)
+    val notAuthenticatedState = _notAuthenticatedState.asStateFlow()
+
     init {
         viewModelScope.launch {
-            userRepository.userSessionFlow.collectLatest { session ->
-                if (session.user != null) {
+            userRepository.getSessionStatus(
+                authenticated = {
                     _bookmarkTypeState.flatMapLatest {
                         bookmarksRepository.getBookmarks(it)
                     }.collectFlowAsPaging(_bookmarksState)
+                },
+                notAuthenticated = {
+                    _notAuthenticatedState.value = true
                 }
-            }
+            )
         }
     }
 

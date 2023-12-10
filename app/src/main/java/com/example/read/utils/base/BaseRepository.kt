@@ -32,7 +32,7 @@ abstract class BaseRepository(private val appDispatchers: AppDispatchers) {
                 jumpThreshold = jumpThreshold
             ),
             pagingSourceFactory = { pagingSource }
-        ).flow.flowOn(appDispatchers.default)
+        ).flow.flowOn(appDispatchers.io)
     }
 
     protected fun <F, T> doRequest(

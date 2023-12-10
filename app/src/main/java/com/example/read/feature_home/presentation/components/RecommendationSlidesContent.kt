@@ -40,7 +40,7 @@ import com.example.read.R
 import com.example.read.feature_home.domain.models.RecommendationItem
 import com.example.read.ui.theme.Purple70
 import com.example.read.ui.theme.ReadTheme
-import com.example.read.ui.theme.White80
+import com.example.read.ui.theme.LightGray
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -59,12 +59,12 @@ fun RecommendationSlides(
         it.posterImage?.let { posterImage -> slideImages.add(posterImage) }
     }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(pagerState.currentPageOffsetFraction == 0f) {
         while (true) {
             delay(5000)
             val nextPage = (pagerState.currentPage + 1) % pagerState.pageCount
             if (nextPage == 0) {
-                pagerState.animateScrollToPage(nextPage)
+                pagerState.scrollToPage(nextPage)
             } else {
                 pagerState.animateScrollToPage(nextPage, animationSpec = tween(500))
             }
@@ -110,7 +110,7 @@ fun RecommendationSlides(
         ) {
             repeat(pagerState.pageCount) { iteration ->
                 val color =
-                    if (pagerState.currentPage == iteration) Purple70 else White80
+                    if (pagerState.currentPage == iteration) Purple70 else LightGray
 
                 Box(
                     modifier = Modifier

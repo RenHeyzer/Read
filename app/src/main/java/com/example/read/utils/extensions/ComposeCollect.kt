@@ -39,6 +39,37 @@ fun <T : Any, S> S.ConfigureAsLazyPagingItemsState(
     }
 }
 
+@Composable
+fun <T : Any> ConfigureAsLazyPagingItemsState(
+    pagingItems: LazyPagingItems<T>,
+    loadState: LoadState,
+    loading: (@Composable () -> Unit)? = null,
+    error: (@Composable (message: String) -> Unit)? = null,
+    notLoading: (@Composable (data: LazyPagingItems<T>) -> Unit)? = null
+) {
+    when (loadState) {
+        LoadState.Loading -> {
+            loading?.let {
+                it()
+            }
+        }
+
+        is LoadState.Error -> {
+            loadState.error.localizedMessage?.let { message ->
+                error?.let {
+                    it(message)
+                }
+            }
+        }
+
+        is LoadState.NotLoading -> {
+            notLoading?.let {
+                it(pagingItems)
+            }
+        }
+    }
+}
+
 fun LazyListScope.pagingLoadStateItem(
     loadState: LoadState,
     keySuffix: String? = null,
@@ -76,6 +107,28 @@ fun <T, S> S.ConfigureAsUiState(
         is UiState.Success -> {
             state.data?.let { data ->
                 success?.let { it(this, data) }
+            }
+        }
+    }
+}
+
+@Composable
+fun <T> ConfigureAsUiState(
+    state: UiState<T>,
+    loading: (@Composable () -> Unit)? = null,
+    error: (@Composable (message: String) -> Unit)? = null,
+    success: (@Composable (data: T) -> Unit)? = null
+) {
+    when (state) {
+        is UiState.Loading -> loading?.let { it() }
+        is UiState.Error -> {
+            state.message?.let { message ->
+                error?.let { it(message) }
+            }
+        }
+        is UiState.Success -> {
+            state.data?.let { data ->
+                success?.let { it(data) }
             }
         }
     }

@@ -13,16 +13,22 @@ class BookmarksRemoteDataSourceImpl @Inject constructor(
     private val postgrest: Postgrest,
 ) : BookmarksRemoteDataSource {
 
-    override suspend fun getBookmarks(offset: Long, limit: Long, bookmarkType: BookmarkType) = postgrest[Constants.BOOKMARKS_TABLE_NAME].select(
-        Columns.raw("books(*)")
-    ) {
-        if (bookmarkType != BookmarkType.All) {
-            eq(column = "bookmark_type", value = bookmarkType.type)
-        }
-        range(offset, limit)
-    }.decodeList<BookmarkResponseDto>()
+    override suspend fun getBookmarks(offset: Long, limit: Long, bookmarkType: BookmarkType) =
+        postgrest[Constants.BOOKMARKS_TABLE_NAME].select(
+            Columns.raw("books(*)")
+        ) {
+            if (bookmarkType != BookmarkType.All) {
+                eq(column = "bookmark_type", value = bookmarkType.type)
+            }
+            range(offset, limit)
+        }.decodeList<BookmarkResponseDto>()
 
-    override suspend fun addBookToBookmark(bookmark: BookmarkDto) {
-        postgrest[Constants.BOOKMARKS_TABLE_NAME].insert(bookmark)
+    override suspend fun addBookToBookmark(bookmark: BookmarkDto, upsert: Boolean) {
+        postgrest[Constants.BOOKMARKS_TABLE_NAME].insert(bookmark, onConflict = "abort", upsert = upsert)
     }
+
+    override suspend fun checkBookInBookmarks(id: String) =
+        postgrest[Constants.BOOKMARKS_TABLE_NAME].select {
+            eq("id", id)
+        }.decodeSingleOrNull<BookmarkDto>()
 }

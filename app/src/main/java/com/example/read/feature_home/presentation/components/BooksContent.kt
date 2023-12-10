@@ -1,8 +1,6 @@
 package com.example.read.feature_home.presentation.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,7 +10,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Icon
@@ -26,17 +23,19 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import com.example.read.R
 import com.example.read.feature_detail.domain.models.Chapter
 import com.example.read.feature_home.domain.models.BookItem
-import com.example.read.ui.theme.PurpleHorizontal
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.datetime.Instant
+import java.util.UUID
 
 @Composable
 fun BooksContent(
@@ -52,7 +51,10 @@ fun BooksContent(
         verticalArrangement = Arrangement.spacedBy(4.dp),
         contentPadding = PaddingValues(top = 4.dp, start = 4.dp, end = 4.dp)
     ) {
-        items(data.itemCount) { index ->
+        items(
+            count = data.itemCount,
+            key = data.itemKey { it.id ?: UUID.randomUUID().toString() }
+        ) { index ->
             if (data[index] == null) return@items
             data[index]?.let {
                 BookItem(

@@ -18,6 +18,6 @@ val PurpleHorizontal = Brush.horizontalGradient(
 val WhiteVertical = Brush.verticalGradient(
     listOf(
         Color.White,
-        White80
+        LightGray
     )
 )

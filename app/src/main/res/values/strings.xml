@@ -12,9 +12,10 @@
     <string name="screen_home_recommendations_section">Рекомендуемые</string>
     <string name="error_message">Произошла ошибка!</string>
     <string name="retry_icon_content_description">Попробовать снова</string>
-    <string name="search_icon_content_description">Иконка поиска</string>
+    <string name="search_icon_content_description">Значок поиска</string>
     <string name="clear_icon_content_description">Кнопка для очистки теста из строки поиска</string>
     <string name="back_icon_content_description">Кнопка назад</string>
+    <string name="done_icon_content_description">Значок готово</string>
     <string name="rating_icon_content_description">Иконка рейтинга</string>
     <string name="google_icon_content_description">Иконка google</string>
     <string name="manga_catalog">Манга</string>
@@ -43,6 +44,7 @@
     <string name="profile_image_content_description">Фото профиля</string>
     <string name="search_text_field_text">Поиск</string>
     <string name="add_book_to_bookmark_success">Добавлено в закладки!</string>
-    <string name="add_book_to_bookmark_auth_failure">Чтобы добавлять в закладки, нужно быть зарегистрированным!</string>
+    <string name="bookmark_auth_failure">Чтобы добавлять в закладки, нужно быть авторизованным!</string>
     <string name="add_book_to_bookmark_default" />
+    <string name="bookmarks_empty">Здесь ещё нет закладок</string>
 </resources>

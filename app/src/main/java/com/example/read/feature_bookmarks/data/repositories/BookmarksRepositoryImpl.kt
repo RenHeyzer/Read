@@ -35,9 +35,14 @@ class BookmarksRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun addBookToBookmark(bookmark: Bookmark) {
+    override suspend fun addBookToBookmark(bookmark: Bookmark, upsert: Boolean) {
         withContext(appDispatchers.io) {
-            bookmarksRemoteDataSource.addBookToBookmark(bookmarkMapper.from(bookmark))
+            bookmarksRemoteDataSource.addBookToBookmark(bookmarkMapper.from(bookmark), upsert)
         }
+    }
+
+    override suspend fun checkBookInBookmarks(id: String) = withContext(appDispatchers.io) {
+        val result = bookmarksRemoteDataSource.checkBookInBookmarks(id)
+        if (result != null) bookmarkMapper.to(result) else null
     }
 }

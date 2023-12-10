@@ -17,7 +17,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
@@ -43,142 +42,82 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.read.R
-import com.example.read.feature_profile.domain.models.User
 import com.example.read.main.presentation.Screen
-import com.example.read.ui.theme.Purple50
 import com.example.read.ui.theme.PurpleVerticalToBottom
 import com.example.read.ui.theme.ReadTheme
 import com.example.read.ui.theme.Rubik
-import com.example.read.utils.state_holders.UiState
+import com.example.read.utils.extensions.LoadingIndicator
 
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel = hiltViewModel(),
     navController: NavHostController,
-    logout: () -> Unit
 ) {
-    val userState by viewModel.userState.collectAsState()
+    val profileState by viewModel.profileState.collectAsState()
 
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-        Card(
-            modifier = Modifier
-                .padding(10.dp)
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(10.dp),
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(PurpleVerticalToBottom),
-                contentAlignment = Alignment.Center
-            ) {
-                when (userState) {
-                    is UserUiState.Loading -> {
+        when (profileState) {
+            is ProfileUiState.Loading -> {
+                LoadingIndicator()
+            }
 
-                    }
+            is ProfileUiState.Error -> {
+                Log.e("getUser", (profileState as ProfileUiState.Error).message)
+            }
 
-                    is UserUiState.Error -> {
-                        (userState as UserUiState.Error).message?.let { message ->
-                            Log.e("getUser", message)
+            is ProfileUiState.Success -> {
+                with((profileState as ProfileUiState.Success).user.metadata) {
+                    UserInfo(
+                        username = username,
+                        profileImage = profileImage,
+                    ) {
+                        OutlinedButton(
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(bottom = 20.dp, end = 20.dp),
+                            onClick = {
+                                viewModel.logout()
+                            },
+                            shape = RoundedCornerShape(10.dp),
+                            border = BorderStroke(1.dp, Color.White)
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.logout_button_text),
+                                color = Color.White,
+                                fontSize = 14.sp,
+                                fontFamily = Rubik,
+                                fontWeight = FontWeight.Bold,
+                                overflow = TextOverflow.Ellipsis
+                            )
                         }
                     }
+                }
+            }
 
-                    is UserUiState.SessionUser -> {
-                        with(userState as UserUiState.SessionUser) {
-                            Log.e("getUser", data.toString())
-                            UserInfo(
-                                modifier = Modifier.fillMaxWidth(),
-                                username = data.userMetadata.username,
-                                profileImage = data.userMetadata.profileImage,
-                            ) {
-                                OutlinedButton(
-                                    modifier = Modifier
-                                        .align(Alignment.BottomEnd)
-                                        .padding(bottom = 20.dp, end = 20.dp),
-                                    onClick = {
-                                        viewModel.logout {
-                                            logout()
-                                        }
-                                    },
-                                    shape = RoundedCornerShape(10.dp),
-                                    border = BorderStroke(1.dp, Color.White)
-                                ) {
-                                    Text(
-                                        text = stringResource(id = R.string.logout_button_text),
-                                        color = Color.White,
-                                        fontSize = 14.sp,
-                                        fontFamily = Rubik,
-                                        fontWeight = FontWeight.Bold,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                }
-                            }
-                        }
-                    }
-
-                    is UserUiState.Guest -> {
-                        with(userState as UserUiState.Guest) {
-                            if (username.isNotEmpty()) {
-                                UserInfo(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    guestUsername = username
-                                ) {
-                                    OutlinedButton(
-                                        modifier = Modifier
-                                            .align(Alignment.BottomEnd)
-                                            .padding(bottom = 20.dp, end = 20.dp),
-                                        onClick = {
-                                            navController.navigate(Screen.SignIn.route)
-                                        },
-                                        shape = RoundedCornerShape(10.dp),
-                                        border = BorderStroke(1.dp, Color.White)
-                                    ) {
-                                        Text(
-                                            text = stringResource(id = R.string.sign_in_button_text),
-                                            color = Color.White,
-                                            fontSize = 14.sp,
-                                            fontFamily = Rubik,
-                                            fontWeight = FontWeight.Bold,
-                                            overflow = TextOverflow.Ellipsis
-                                        )
-                                    }
-                                }
-                            } else {
-                                viewModel.updateGuestUsername()
-                            }
-                        }
-                    }
-
-                    is UserUiState.RefreshedUser -> {
-                        with(userState as UserUiState.RefreshedUser) {
-                            UserInfo(
-                                modifier = Modifier.fillMaxWidth(),
-                                username = data.userMetadata.username,
-                                profileImage = data.userMetadata.profileImage,
-                            ) {
-                                OutlinedButton(
-                                    modifier = Modifier
-                                        .align(Alignment.BottomEnd)
-                                        .padding(bottom = 20.dp, end = 20.dp),
-                                    onClick = {
-                                        viewModel.logout {
-                                            logout()
-                                        }
-                                    },
-                                    shape = RoundedCornerShape(10.dp),
-                                    border = BorderStroke(1.dp, Color.White)
-                                ) {
-                                    Text(
-                                        text = stringResource(id = R.string.logout_button_text),
-                                        color = Color.White,
-                                        fontSize = 14.sp,
-                                        fontFamily = Rubik,
-                                        fontWeight = FontWeight.Bold,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                }
-                            }
+            is ProfileUiState.Guest -> {
+                with(profileState as ProfileUiState.Guest) {
+                    UserInfo(
+                        guestUsername = username
+                    ) {
+                        OutlinedButton(
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(bottom = 20.dp, end = 20.dp),
+                            onClick = {
+                                navController.navigate(Screen.SignIn.route)
+                            },
+                            shape = RoundedCornerShape(10.dp),
+                            border = BorderStroke(1.dp, Color.White)
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.sign_in_button_text),
+                                color = Color.White,
+                                fontSize = 14.sp,
+                                fontFamily = Rubik,
+                                fontWeight = FontWeight.Bold,
+                                overflow = TextOverflow.Ellipsis
+                            )
                         }
                     }
                 }
@@ -195,66 +134,76 @@ fun PreviewProfile() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            ProfileScreen(navController = rememberNavController(), logout = {})
+            ProfileScreen(navController = rememberNavController())
         }
     }
 }
 
 @Composable
 fun UserInfo(
-    modifier: Modifier = Modifier,
     username: String? = null,
     profileImage: String? = null,
     guestUsername: String? = null,
     button: (@Composable BoxScope.() -> Unit)? = null
 ) {
-    Box(modifier = modifier) {
-        Row {
-            AsyncImage(
-                modifier = Modifier
-                    .padding(10.dp)
-                    .width(100.dp)
-                    .height(100.dp)
-                    .clip(CircleShape)
-                    .align(Alignment.CenterVertically),
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(profileImage)
-                    .crossfade(true)
-                    .build(),
-                filterQuality = FilterQuality.High,
-                error = painterResource(id = R.drawable.profile_image_placeholder),
-                fallback = painterResource(id = R.drawable.profile_image_placeholder),
-                contentDescription = stringResource(R.string.profile_image_content_description),
-                contentScale = ContentScale.FillBounds,
-            )
-            if (username != null) {
-                Text(
-                    modifier = Modifier.padding(top = 20.dp, end = 20.dp),
-                    text = username,
-                    color = Color.White,
-                    fontSize = 18.sp,
-                    fontFamily = Rubik,
-                    fontWeight = FontWeight.Medium,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
+    Card(
+        modifier = Modifier
+            .padding(10.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(10.dp),
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(PurpleVerticalToBottom),
+        ) {
+            Row {
+                AsyncImage(
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .width(100.dp)
+                        .height(100.dp)
+                        .clip(CircleShape)
+                        .align(Alignment.CenterVertically),
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(profileImage)
+                        .crossfade(true)
+                        .build(),
+                    filterQuality = FilterQuality.High,
+                    error = painterResource(id = R.drawable.profile_image_placeholder),
+                    fallback = painterResource(id = R.drawable.profile_image_placeholder),
+                    contentDescription = stringResource(R.string.profile_image_content_description),
+                    contentScale = ContentScale.FillBounds,
                 )
-            } else {
-                guestUsername?.let {
+                if (username != null) {
                     Text(
                         modifier = Modifier.padding(top = 20.dp, end = 20.dp),
-                        text = it,
+                        text = username,
                         color = Color.White,
-                        fontSize = 20.sp,
+                        fontSize = 18.sp,
                         fontFamily = Rubik,
                         fontWeight = FontWeight.Medium,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
+                } else {
+                    guestUsername?.let {
+                        Text(
+                            modifier = Modifier.padding(top = 20.dp, end = 20.dp),
+                            text = it,
+                            color = Color.White,
+                            fontSize = 20.sp,
+                            fontFamily = Rubik,
+                            fontWeight = FontWeight.Medium,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
                 }
             }
-        }
-        button?.let {
-            it()
+            button?.let {
+                it()
+            }
         }
     }
 }

@@ -10,5 +10,7 @@ interface BookmarksRepository {
 
     fun getBookmarks(bookmarkType: BookmarkType): Flow<PagingData<BookItem>>
 
-    suspend fun addBookToBookmark(bookmark: Bookmark)
+    suspend fun addBookToBookmark(bookmark: Bookmark, upsert: Boolean = false)
+
+    suspend fun checkBookInBookmarks(id: String): Bookmark?
 }

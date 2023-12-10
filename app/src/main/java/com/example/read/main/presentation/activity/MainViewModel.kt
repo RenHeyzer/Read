@@ -6,17 +6,12 @@ import androidx.paging.PagingData
 import com.example.read.feature_home.domain.models.BookItem
 import com.example.read.feature_home.domain.repositories.BooksRepository
 import com.example.read.feature_home.presentation.screens.HomeViewModel
-import com.example.read.feature_profile.domain.models.UserSession
-import com.example.read.feature_profile.domain.repositories.UserRepository
-import com.example.read.feature_profile.presentation.screens.UserUiState
-import com.example.read.main.data.local.preferences.UserSessionManager
 import com.example.read.utils.base.BaseViewModel
-import com.example.read.utils.mappers.asData
-import com.example.read.utils.mappers.asDomain
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.jan.supabase.exceptions.HttpRequestException
+import io.github.jan.supabase.gotrue.GoTrue
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -25,8 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val userRepository: UserRepository,
-    private val userSessionManager: UserSessionManager,
+    private val gotrue: GoTrue,
     private val bookRepository: BooksRepository,
 ) : BaseViewModel() {
 
@@ -37,7 +31,6 @@ class MainViewModel @Inject constructor(
         savedStateHandle.getStateFlow(HomeViewModel.SEARCH_QUERY_KEY, String())
 
     init {
-//        refreshUser()
         searchQueryState.flatMapLatest { searchQuery ->
             if (searchQuery.isNotEmpty()) {
                 bookRepository.getBooks(searchQuery)
@@ -49,25 +42,15 @@ class MainViewModel @Inject constructor(
         savedStateHandle[HomeViewModel.SEARCH_QUERY_KEY] = searchQuery
     }
 
-    fun updateUserSession(userSession: io.github.jan.supabase.gotrue.user.UserSession) {
-        viewModelScope.launch {
-            userSessionManager.updateUserSessionPreferences(userSession)
-        }
-    }
+    fun checkCurrentSession() = with(gotrue) {
+        if (currentSessionOrNull() == null) {
+            viewModelScope.launch {
+                kotlin.runCatching {
+                    refreshCurrentSession()
+                }.onSuccess {
 
-    fun refreshUser() {
-        viewModelScope.launch {
-            userRepository.userSessionFlow.collectLatest { session ->
-                if (session.refreshToken.isNotEmpty()) {
-                    launch {
-                        kotlin.runCatching {
-                            userRepository.getRefreshedSession(session.refreshToken)
-                        }.onSuccess { session ->
-//                            updateUserSession(session)
-                        }.onFailure {
-                            it.printStackTrace()
-                        }
-                    }
+                }.onFailure {
+
                 }
             }
         }

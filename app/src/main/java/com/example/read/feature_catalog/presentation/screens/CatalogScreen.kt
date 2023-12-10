@@ -22,7 +22,7 @@ import com.example.read.feature_catalog.presentation.components.CatalogContent
 import com.example.read.feature_catalog.presentation.components.CatalogSwitch
 import com.example.read.feature_catalog.presentation.components.PreviewCatalogContent
 import com.example.read.main.presentation.Screen
-import com.example.read.ui.theme.White80
+import com.example.read.ui.theme.LightGray
 import com.example.read.utils.extensions.LoadingIndicator
 import com.example.read.utils.extensions.ConfigureAsLazyPagingItemsState
 
@@ -102,7 +102,7 @@ fun PreviewCatalogScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(White80)
+            .background(LightGray)
     ) {
         CatalogSwitch(
             modifier = Modifier

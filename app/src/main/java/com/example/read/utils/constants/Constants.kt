@@ -10,6 +10,6 @@ object Constants {
     const val INFO_TABLE_NAME = "info"
     const val CHAPTERS_TABLE_NAME = "chapters"
     const val BOOKMARKS_TABLE_NAME = "bookmarks"
-    const val USER_PREFERENCES_NAME = "user_preferences"
+    const val SESSION_TOKEN_PREFERENCES_NAME = "session_token_preferences"
     const val GUEST_PREFERENCES_NAME = "quest_preferences"
 }

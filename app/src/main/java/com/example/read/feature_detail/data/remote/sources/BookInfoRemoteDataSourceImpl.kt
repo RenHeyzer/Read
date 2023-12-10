@@ -1,5 +1,6 @@
 package com.example.read.feature_detail.data.remote.sources
 
+import com.example.read.feature_bookmarks.data.remote.dtos.BookmarkDto
 import com.example.read.feature_detail.data.remote.dtos.InfoDto
 import com.example.read.utils.constants.Constants
 import io.github.jan.supabase.postgrest.Postgrest

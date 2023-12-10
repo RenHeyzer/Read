@@ -1,6 +1,7 @@
 package com.example.read.main.presentation.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -78,9 +79,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supabaseClient.handleDeeplinks(intent) { session ->
-            viewModel.updateUserSession(session)
-        }
+        supabaseClient.handleDeeplinks(intent)
         setContent {
             ReadTheme {
                 // A surface container using the 'background' color from the theme
@@ -107,51 +106,44 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         snackbarHost = { SnackbarHost(snackbarHostState) },
                         topBar = {
-                            if (!isSearchBarActive) {
-                                TopAppBar(
-                                    colors = TopAppBarDefaults.topAppBarColors(
-                                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                        titleContentColor = MaterialTheme.colorScheme.secondary
-                                    ),
-                                    title = {
-                                        Text(
-                                            text = stringResource(id = R.string.app_name),
-                                            fontSize = 18.sp,
-                                            fontFamily = Rubik,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                    },
-                                    navigationIcon = {
-
-                                    },
-                                    actions = {
-                                        IconButton(onClick = {
-                                            isSearchBarActive = true
-                                        }) {
-                                            Icon(
-                                                imageVector = Icons.Outlined.Search,
-                                                contentDescription = stringResource(R.string.search_icon_content_description),
-                                                tint = Color.White,
+                            if (currentDestination?.route != Screen.SignUp.route && currentDestination?.route != Screen.SignIn.route) {
+                                if (!isSearchBarActive) {
+                                    TopAppBar(
+                                        colors = TopAppBarDefaults.topAppBarColors(
+                                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                            titleContentColor = MaterialTheme.colorScheme.secondary
+                                        ),
+                                        title = {
+                                            Text(
+                                                text = stringResource(id = R.string.app_name),
+                                                fontSize = 18.sp,
+                                                fontFamily = Rubik,
+                                                fontWeight = FontWeight.Bold
                                             )
-                                        }
-                                    },
-                                    scrollBehavior = scrollBehavior
-                                )
+                                        },
+                                        navigationIcon = {
+
+                                        },
+                                        actions = {
+                                            IconButton(onClick = {
+                                                isSearchBarActive = true
+                                            }) {
+                                                Icon(
+                                                    imageVector = Icons.Outlined.Search,
+                                                    contentDescription = stringResource(R.string.search_icon_content_description),
+                                                    tint = Color.White,
+                                                )
+                                            }
+                                        },
+                                        scrollBehavior = scrollBehavior
+                                    )
+                                }
                             }
                         },
                         bottomBar = {
                             items.forEach { screen ->
                                 if (currentDestination?.route == screen.route) {
                                     BottomNavigation(
-                                        modifier = Modifier
-                                            .padding(horizontal = 4.dp)
-                                            .clip(
-                                                shape = RoundedCornerShape(
-                                                    topStart = 10.dp,
-                                                    topEnd = 10.dp
-                                                )
-                                            )
-                                            .background(Color.Transparent),
                                         backgroundColor = Purple50
                                     ) {
                                         items.forEach { screen ->
@@ -238,9 +230,6 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier
                                         .fillMaxSize(),
                                     navController = navController,
-                                    logout = {
-                                        recreate()
-                                    }
                                 )
                             }
                             composable(

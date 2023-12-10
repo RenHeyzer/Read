@@ -28,16 +28,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.read.R
-import com.example.read.feature_bookmarks.domain.models.Bookmark
-import com.example.read.feature_bookmarks.domain.models.BookmarkType
 import com.example.read.feature_detail.presentation.components.BookmarkBottomSheet
 import com.example.read.feature_detail.presentation.components.DetailContent
-import com.example.read.feature_detail.presentation.models.BookmarkStatus
-import com.example.read.utils.extensions.LoadingIndicator
 import com.example.read.utils.extensions.ConfigureAsUiState
-import io.github.jan.supabase.gotrue.SessionStatus
+import com.example.read.utils.extensions.LoadingIndicator
 import kotlinx.coroutines.launch
-import java.lang.IllegalStateException
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,20 +49,11 @@ fun DetailScreen(
     var showBottomSheet by remember {
         mutableStateOf(false)
     }
-    val bookmarkStatus by viewModel.bookmarkStatus.collectAsState()
-    val sessionStatus by viewModel.sessionStatus.collectAsState()
+    val bookmarkStatus by viewModel.bookmarkStatus.collectAsState(BookmarkStatus.Default)
 
     with(bookmarkStatus) {
         when (this) {
-            is BookmarkStatus.AuthFailure -> {
-                val message = stringResource(id = bookmarkStatus.message)
-                LaunchedEffect(bookmarkStatus) {
-                    snackbarHostState.showSnackbar(
-                        message = message,
-                        duration = SnackbarDuration.Short
-                    )
-                }
-            }
+            BookmarkStatus.Default -> Log.e("bookmarks_status", this.toString())
 
             is BookmarkStatus.Success -> {
                 val message = stringResource(id = bookmarkStatus.message)
@@ -79,7 +65,27 @@ fun DetailScreen(
                 }
             }
 
-            else -> {}
+            is BookmarkStatus.AuthFailure -> {
+                Log.e("add_bookmark", "fail auth")
+
+                val message = stringResource(id = bookmarkStatus.message)
+                LaunchedEffect(bookmarkStatus) {
+                    snackbarHostState.showSnackbar(
+                        message = message,
+                        duration = SnackbarDuration.Short
+                    )
+                }
+            }
+
+            BookmarkStatus.Error -> {
+                val message = stringResource(id = bookmarkStatus.message)
+                LaunchedEffect(bookmarkStatus) {
+                    snackbarHostState.showSnackbar(
+                        message = message,
+                        duration = SnackbarDuration.Short
+                    )
+                }
+            }
         }
     }
 
@@ -107,55 +113,12 @@ fun DetailScreen(
                     BookmarkBottomSheet(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(300.dp),
+                            .height(320.dp),
                         onDismissRequest = { showBottomSheet = false },
                         sheetState = sheetState,
                         onSelect = {
-                            when (sessionStatus) {
-                                true -> {
-                                    info.id?.let { id ->
-                                        val bookmark = Bookmark(id, it.type)
-                                        when (it) {
-                                            BookmarkType.READING -> {
-                                                viewModel.addBookToBookmark(bookmark = bookmark) {
-                                                    viewModel.changeBookmarkStatus(BookmarkStatus.Success)
-                                                }
-                                            }
-
-                                            BookmarkType.READ -> {
-                                                viewModel.addBookToBookmark(bookmark = bookmark) {
-                                                    viewModel.changeBookmarkStatus(BookmarkStatus.Success)
-                                                }
-                                            }
-
-                                            BookmarkType.IN_THE_PLANS -> {
-                                                viewModel.addBookToBookmark(bookmark = bookmark) {
-                                                    viewModel.changeBookmarkStatus(BookmarkStatus.Success)
-                                                }
-                                            }
-
-                                            BookmarkType.ABANDONED -> {
-                                                viewModel.addBookToBookmark(bookmark = bookmark) {
-                                                    viewModel.changeBookmarkStatus(BookmarkStatus.Success)
-                                                }
-                                            }
-
-                                            BookmarkType.FAVORITES -> {
-                                                viewModel.addBookToBookmark(bookmark = bookmark) {
-                                                    viewModel.changeBookmarkStatus(BookmarkStatus.Success)
-                                                }
-                                            }
-
-                                            else -> {
-                                                viewModel.changeBookmarkStatus(BookmarkStatus.AuthFailure)
-                                            }
-                                        }
-                                    }
-                                }
-
-                                false -> {
-                                    viewModel.changeBookmarkStatus(BookmarkStatus.AuthFailure)
-                                }
+                            info.id?.let { id ->
+                                viewModel.addBookToBookmark(id, it)
                             }
                             scope.launch { sheetState.hide() }.invokeOnCompletion {
                                 if (!sheetState.isVisible) {

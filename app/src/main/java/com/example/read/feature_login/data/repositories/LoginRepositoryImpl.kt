@@ -1,13 +1,11 @@
 package com.example.read.feature_login.data.repositories
 
-import com.example.read.main.data.local.preferences.UserSessionManager
 import com.example.read.feature_login.data.remote.sources.LoginRemoteDataSource
 import com.example.read.feature_login.domain.models.SignUpParams
 import com.example.read.feature_login.domain.models.SignUpResult
 import com.example.read.feature_login.domain.repositories.LoginRepository
 import com.example.read.utils.base.BaseRepository
 import com.example.read.utils.dispatchers.AppDispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 

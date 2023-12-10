@@ -1,5 +1,6 @@
 package com.example.read.feature_home.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import com.example.read.R
 import com.example.read.feature_home.domain.models.RecommendationItem
 import com.example.read.ui.theme.Purple60
@@ -38,6 +40,7 @@ import com.example.read.ui.theme.PurpleVerticalToBottom
 import com.example.read.ui.theme.Rubik
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.StandardTestDispatcher
+import java.util.UUID
 
 @Composable
 fun Recommendations(
@@ -82,7 +85,10 @@ fun Recommendations(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             contentPadding = PaddingValues(horizontal = 4.dp)
         ) {
-            items(data.itemCount) { index ->
+            items(
+                count = data.itemCount,
+                key = data.itemKey { it.id ?: UUID.randomUUID().toString() }
+            ) { index ->
                 if (data[index] == null) return@items
                 data[index]?.let {
                     RecommendationItem(item = it)
