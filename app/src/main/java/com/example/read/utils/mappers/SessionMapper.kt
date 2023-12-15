@@ -7,5 +7,5 @@ fun UserSession.asDomain() = Session(
     accessToken = accessToken,
     refreshToken = refreshToken,
     expiresIn = expiresIn,
-    user = user
+    user = user?.asDomain()
 )

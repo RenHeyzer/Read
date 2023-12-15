@@ -9,13 +9,16 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.read.feature_bookmarks.domain.models.Bookmark
 import com.example.read.feature_detail.domain.models.Info
+import com.example.read.utils.state_holders.UiState
 
 @Composable
 fun ColumnScope.DetailContent(
     info: Info,
     onBackPressed: () -> Unit,
     onBookmarkClick: () -> Unit,
+    inBookmarksState: UiState<Bookmark>
 ) {
 
     TopContent(
@@ -26,6 +29,7 @@ fun ColumnScope.DetailContent(
         info = info,
         onBackPressed = onBackPressed,
         onBookmarkClick = onBookmarkClick,
+        inBookmarksState = inBookmarksState
     )
 
     Spacer(

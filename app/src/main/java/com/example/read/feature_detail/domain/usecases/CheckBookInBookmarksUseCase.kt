@@ -3,54 +3,25 @@ package com.example.read.feature_detail.domain.usecases
 import com.example.read.feature_bookmarks.domain.models.Bookmark
 import com.example.read.feature_bookmarks.domain.repositories.BookmarksRepository
 import com.example.read.feature_profile.domain.repositories.ProfileRepository
-import com.example.read.feature_profile.domain.repositories.SessionStatusState
+import com.example.read.utils.state_holders.Either
 import javax.inject.Inject
 
+/*
 class CheckBookInBookmarksUseCase @Inject constructor(
     private val bookmarksRepository: BookmarksRepository,
     private val profileRepository: ProfileRepository
 ) {
 
-    suspend operator fun invoke(id: String, bookmark: Bookmark): BookmarkResult {
-        return try {
-            when (profileRepository.sessionStatus) {
-                is SessionStatusState.Authenticated -> {
+    suspend operator fun invoke(id: String): Either<Exception, Bookmark> {
+        profileRepository.getSessionStatus(
+            authenticated = {
+                try {
                     val inBookmark = bookmarksRepository.checkBookInBookmarks(id)
-                    if (inBookmark == null) {
-                        bookmarksRepository.addBookToBookmark(bookmark)
-                        BookmarkResult.Success
-                    } else {
-                        if (inBookmark.type != bookmark.type) {
-                            bookmarksRepository.addBookToBookmark(
-                                bookmark = bookmark,
-                                upsert = true
-                            )
-                            BookmarkResult.Success
-                        } else {
-                            BookmarkResult.AlreadyExist
-                        }
-                    }
+                    Either.Right(inBookmark)
+                } catch (e: Exception) {
+                    Either.Left(e)
                 }
-
-                SessionStatusState.NotAuthenticated -> BookmarkResult.AuthFailure
-                else -> BookmarkResult.Else
-            }
-        } catch (e: Exception) {
-            BookmarkResult.Error(e.message ?: "Unknown error!")
-        }
+            },
+        )
     }
-
-}
-
-sealed interface BookmarkResult {
-
-    data object Success : BookmarkResult
-
-    data object AuthFailure : BookmarkResult
-
-    class Error(val message: String) : BookmarkResult
-
-    data object AlreadyExist : BookmarkResult
-
-    data object Else : BookmarkResult
-}
+}*/

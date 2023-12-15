@@ -1,5 +1,7 @@
 package com.example.read.feature_detail.presentation.components
 
+import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -7,6 +9,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
@@ -27,11 +31,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.read.R
+import com.example.read.feature_bookmarks.domain.models.Bookmark
 import com.example.read.feature_bookmarks.domain.models.BookmarkType
 import com.example.read.ui.theme.LightGray
 import com.example.read.ui.theme.Purple60
 import com.example.read.ui.theme.ReadTheme
 import com.example.read.ui.theme.Rubik
+import com.example.read.utils.state_holders.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,7 +45,9 @@ fun BookmarkBottomSheet(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit,
     sheetState: SheetState,
-    onSelect: (BookmarkType) -> Unit
+    inBookmarksState: UiState<Bookmark>,
+    onSelect: (BookmarkType) -> Unit,
+    onDelete: (id: String) -> Unit
 ) {
 
     val bookmarkItems = listOf(
@@ -106,6 +114,42 @@ fun BookmarkBottomSheet(
                 }
             )
         }
+
+        when (inBookmarksState) {
+            is UiState.Error -> {
+                inBookmarksState.message?.let { Log.e("bookmark", it) }
+            }
+
+            is UiState.Loading -> {}
+            is UiState.Success -> {
+                if (inBookmarksState.data != null) {
+                    BookmarkType.entries.find {
+                        it.type == inBookmarksState.data.type
+                    }?.let {
+                        selected[it.name] = true
+                    }
+                    Button(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp)
+                            .align(Alignment.CenterHorizontally),
+                        onClick = {
+                            onDelete(inBookmarksState.data.id)
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                        border = BorderStroke(1.dp, Color.Red)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.delete_book_from_bookmarks),
+                            color = Color.Red,
+                            fontSize = 12.sp,
+                            fontFamily = Rubik,
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -120,7 +164,9 @@ fun PreviewBookmarkBottomSheet() {
                 .height(300.dp),
             onDismissRequest = { },
             sheetState = rememberModalBottomSheetState(),
-            onSelect = { }
+            onSelect = { },
+            onDelete = { },
+            inBookmarksState = UiState.Loading()
         )
     }
 }

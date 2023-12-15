@@ -125,8 +125,8 @@ fun HomeScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(height)
-                            .alpha(alpha)
+                            .height(if(bookPagingItems.itemCount > 5) height else maxHeight)
+                            .alpha(if(bookPagingItems.itemCount > 5) alpha else 1f)
                     ) {
                         if (slidesState is UiState.Success) {
                             (slidesState as UiState.Success).apply {

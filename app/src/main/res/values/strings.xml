@@ -43,8 +43,11 @@
     <string name="send_confirmation_again">Отправить ещё раз</string>
     <string name="profile_image_content_description">Фото профиля</string>
     <string name="search_text_field_text">Поиск</string>
-    <string name="add_book_to_bookmark_success">Добавлено в закладки!</string>
+    <string name="add_book_to_bookmarks_success">Добавлено в закладки!</string>
+    <string name="delete_from_bookmarks_success">Удалено из закладок!</string>
     <string name="bookmark_auth_failure">Чтобы добавлять в закладки, нужно быть авторизованным!</string>
     <string name="add_book_to_bookmark_default" />
     <string name="bookmarks_empty">Здесь ещё нет закладок</string>
+    <string name="bookmark_already_exist">Книга уже была добавлена в закладки!</string>
+    <string name="delete_book_from_bookmarks">Удалить из закладок</string>
 </resources>

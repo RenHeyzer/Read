@@ -95,7 +95,8 @@ fun <T, S> S.ConfigureAsUiState(
     state: UiState<T>,
     loading: (@Composable S.() -> Unit)? = null,
     error: (@Composable S.(message: String) -> Unit)? = null,
-    success: (@Composable S.(data: T) -> Unit)? = null
+    success: (@Composable S.(data: T) -> Unit)? = null,
+    whenNull: (@Composable S.(data: T?) -> Unit)? = null
 ) {
     when (state) {
         is UiState.Loading -> loading?.let { it(this) }
@@ -105,8 +106,10 @@ fun <T, S> S.ConfigureAsUiState(
             }
         }
         is UiState.Success -> {
-            state.data?.let { data ->
-                success?.let { it(this, data) }
+            if (state.data != null) {
+                success?.let { it(this, state.data) }
+            } else {
+                whenNull?.let { it(this, null) }
             }
         }
     }

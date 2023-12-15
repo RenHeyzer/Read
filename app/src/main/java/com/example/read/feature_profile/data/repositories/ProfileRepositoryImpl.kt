@@ -36,18 +36,26 @@ class ProfileRepositoryImpl @Inject constructor(
         loadingFromStorage: (suspend () -> Unit)?,
         networkError: (suspend () -> Unit)?
     ) {
-        userRemoteDataSource.getSessionStatus(
-            authenticated = { session ->
-                authenticated?.let { it(session.asDomain()) }
-            },
-            notAuthenticated = notAuthenticated,
-            loadingFromStorage = loadingFromStorage,
-            networkError = networkError
-        )
+        userRemoteDataSource.sessionStatus.collect { status ->
+            when (status) {
+                is SessionStatus.Authenticated -> authenticated?.let {
+                    it(status.session.asDomain())
+                }
+                SessionStatus.LoadingFromStorage -> loadingFromStorage?.let {
+                    it()
+                }
+                SessionStatus.NetworkError -> networkError?.let {
+                    it()
+                }
+                SessionStatus.NotAuthenticated -> notAuthenticated?.let {
+                    it()
+                }
+            }
+        }
     }
 
     override val sessionStatus: SessionStatusState
-        get() = when (val status = userRemoteDataSource.sessionStatus) {
+        get() = when (val status = userRemoteDataSource.sessionStatus.value) {
             is SessionStatus.Authenticated -> SessionStatusState.Authenticated(status.session.asDomain())
             SessionStatus.LoadingFromStorage -> SessionStatusState.LoadingFromStorage
             SessionStatus.NetworkError -> SessionStatusState.NetworkError

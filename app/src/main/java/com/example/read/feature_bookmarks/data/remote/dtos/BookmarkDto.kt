@@ -8,6 +8,10 @@ import kotlinx.serialization.Serializable
 data class BookmarkDto(
     @SerialName("id")
     val id: String,
+    @SerialName("book_id")
+    val bookId: String,
     @SerialName("bookmark_type")
-    val type: String
+    val type: String,
+    @SerialName("user_id")
+    val userId: String
 ): Mappable

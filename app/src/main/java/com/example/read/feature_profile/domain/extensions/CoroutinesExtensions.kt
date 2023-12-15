@@ -34,7 +34,7 @@ suspend fun <L, R> Either<L, R>.eitherResult(
 ) {
     when (this) {
         is Either.Left -> {
-            message?.let { message ->
+            this.error?.let { message ->
                 error(message)
             }
         }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.BookmarkAdd
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -49,15 +50,16 @@ fun DetailScreen(
     var showBottomSheet by remember {
         mutableStateOf(false)
     }
-    val bookmarkStatus by viewModel.bookmarkStatus.collectAsState(BookmarkStatus.Default)
+    val bookmarkState by viewModel.bookmarkState.collectAsState(BookmarkState.Default)
+    val inBookmarksState by viewModel.inBookmarksState.collectAsState()
 
-    with(bookmarkStatus) {
+    with(bookmarkState) {
         when (this) {
-            BookmarkStatus.Default -> Log.e("bookmarks_status", this.toString())
+            BookmarkState.Default -> Log.e("bookmarks_status", this.toString())
 
-            is BookmarkStatus.Success -> {
-                val message = stringResource(id = bookmarkStatus.message)
-                LaunchedEffect(bookmarkStatus) {
+            is BookmarkState.Success -> {
+                val message = stringResource(id = bookmarkState.message)
+                LaunchedEffect(bookmarkState) {
                     snackbarHostState.showSnackbar(
                         message = message,
                         duration = SnackbarDuration.Short
@@ -65,11 +67,11 @@ fun DetailScreen(
                 }
             }
 
-            is BookmarkStatus.AuthFailure -> {
+            is BookmarkState.AuthFailure -> {
                 Log.e("add_bookmark", "fail auth")
 
-                val message = stringResource(id = bookmarkStatus.message)
-                LaunchedEffect(bookmarkStatus) {
+                val message = stringResource(id = bookmarkState.message)
+                LaunchedEffect(bookmarkState) {
                     snackbarHostState.showSnackbar(
                         message = message,
                         duration = SnackbarDuration.Short
@@ -77,9 +79,19 @@ fun DetailScreen(
                 }
             }
 
-            BookmarkStatus.Error -> {
-                val message = stringResource(id = bookmarkStatus.message)
-                LaunchedEffect(bookmarkStatus) {
+            is BookmarkState.Error -> {
+                val message = stringResource(id = bookmarkState.message)
+                LaunchedEffect(bookmarkState) {
+                    snackbarHostState.showSnackbar(
+                        message = message,
+                        duration = SnackbarDuration.Short
+                    )
+                }
+            }
+
+            is BookmarkState.AlreadyExist -> {
+                val message = stringResource(id = bookmarkState.message)
+                LaunchedEffect(bookmarkState) {
                     snackbarHostState.showSnackbar(
                         message = message,
                         duration = SnackbarDuration.Short
@@ -106,26 +118,37 @@ fun DetailScreen(
                     },
                     onBookmarkClick = {
                         showBottomSheet = true
-                    }
+                    },
+                    inBookmarksState = inBookmarksState
                 )
 
                 if (showBottomSheet) {
                     BookmarkBottomSheet(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(320.dp),
+                            .height(340.dp),
                         onDismissRequest = { showBottomSheet = false },
                         sheetState = sheetState,
                         onSelect = {
                             info.id?.let { id ->
-                                viewModel.addBookToBookmark(id, it)
+                                viewModel.addBookToBookmarks(id, it)
                             }
                             scope.launch { sheetState.hide() }.invokeOnCompletion {
                                 if (!sheetState.isVisible) {
                                     showBottomSheet = false
                                 }
                             }
-                        }
+                        },
+                        onDelete = { id ->
+                            Log.e("delete", id)
+                            viewModel.deleteBookFromBookmarks(id)
+                            scope.launch { sheetState.hide() }.invokeOnCompletion {
+                                if (!sheetState.isVisible) {
+                                    showBottomSheet = false
+                                }
+                            }
+                        },
+                        inBookmarksState = inBookmarksState
                     )
                 }
             }
@@ -150,10 +173,10 @@ fun PreviewBackButton() {
 }
 
 @Composable
-fun BookmarkButton(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
+fun BookmarkButton(modifier: Modifier = Modifier, onClick: () -> Unit = {}, inBookmarks: Boolean) {
     IconButton(modifier = modifier, onClick = onClick) {
         Icon(
-            imageVector = Icons.Outlined.BookmarkAdd,
+            imageVector = if (inBookmarks) Icons.Outlined.BookmarkAdd else Icons.Filled.Bookmark,
             contentDescription = stringResource(R.string.back_icon_content_description)
         )
     }
@@ -162,5 +185,5 @@ fun BookmarkButton(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
 @Preview
 @Composable
 fun PreviewBookmarkButton() {
-    BookmarkButton()
+    BookmarkButton(inBookmarks = false)
 }

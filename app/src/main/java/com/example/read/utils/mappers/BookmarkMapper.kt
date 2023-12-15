@@ -8,11 +8,15 @@ class BookmarkMapper @Inject constructor() : Mapper<BookmarkDto, Bookmark> {
 
     override fun to(model: BookmarkDto) = Bookmark(
         id = model.id,
-        type = model.type
+        bookId = model.bookId,
+        type = model.type,
+        userId = model.userId
     )
 
     override fun from(model: Bookmark) = BookmarkDto(
         id = model.id,
-        type = model.type
+        bookId = model.bookId,
+        type = model.type,
+        userId = model.userId
     )
 }

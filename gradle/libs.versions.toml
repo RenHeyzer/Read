@@ -59,9 +59,14 @@ supabase-postgrest-kt = { group = "io.github.jan-tennert.supabase", name = "post
 supabase-storage-kt = { group = "io.github.jan-tennert.supabase", name = "storage-kt" }
 supabase-compose-auth = { group = "io.github.jan-tennert.supabase", name = "compose-auth" }
 supabase-gotrue-kt = {group = "io.github.jan-tennert.supabase", name = "gotrue-kt"}
+supabase-realtime-kt = {group = "io.github.jan-tennert.supabase", name = "realtime-kt"}
 
 #Ktor Client
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.require = "2.3.6" }
+ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.require = "2.3.6" }
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.require = "2.3.6" }
+ktor-client-json = { group = "io.ktor", name = "ktor-client-json", version.require = "2.3.6" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.require = "2.3.6" }
 
 #DataStore
 proto-data-store = { group = "androidx.datastore", name = "datastore", version.require = "1.0.0" }
@@ -71,4 +76,4 @@ preferences-data-store = { group = "androidx.datastore", name = "datastore-prefe
 compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-ui-test-junit4", "compose-ui-tooling", "compose-ui-test-manifest", "compose-material", "compose-material-icons"]
 hilt = ["hilt-compose", "hilt-android"]
 paging = ["paging-runtime", "paging-compose"]
-supabase = ["supabase-postgrest-kt", "supabase-storage-kt", "supabase-compose-auth", "supabase-gotrue-kt"]
+supabase = ["supabase-postgrest-kt", "supabase-storage-kt", "supabase-compose-auth", "supabase-gotrue-kt", "supabase-realtime-kt"]

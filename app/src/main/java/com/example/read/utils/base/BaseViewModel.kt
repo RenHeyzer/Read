@@ -29,7 +29,7 @@ abstract class BaseViewModel : ViewModel() {
             this@collectFlowAsState.collect {
                 when (it) {
                     is Either.Left -> {
-                        it.message?.let { message ->
+                        it.error?.let { message ->
                             state.value = UiState.Error(message)
 
                         }

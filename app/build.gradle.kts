@@ -90,6 +90,10 @@ dependencies {
         implementation(platform(supabase.bom))
         implementation(bundles.supabase)
         implementation(ktor.client.android)
+        implementation(ktor.client.okhttp)
+        implementation(ktor.client.cio)
+        implementation(ktor.client.json)
+        implementation(ktor.client.logging)
         implementation(preferences.data.store)
     }
 }

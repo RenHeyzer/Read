@@ -1,5 +1,6 @@
 package com.example.read.feature_detail.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.read.R
+import com.example.read.feature_bookmarks.domain.models.Bookmark
 import com.example.read.feature_detail.domain.models.Info
 import com.example.read.feature_detail.presentation.screens.BackButton
 import com.example.read.feature_detail.presentation.screens.BookmarkButton
@@ -38,13 +40,16 @@ import com.example.read.ui.theme.Purple60
 import com.example.read.ui.theme.PurpleHorizontal
 import com.example.read.ui.theme.PurpleVerticalToBottom
 import com.example.read.ui.theme.Rubik
+import com.example.read.utils.extensions.ConfigureAsUiState
+import com.example.read.utils.state_holders.UiState
 
 @Composable
 fun TopContent(
     modifier: Modifier = Modifier,
     info: Info,
     onBackPressed: () -> Unit,
-    onBookmarkClick: () -> Unit
+    onBookmarkClick: () -> Unit,
+    inBookmarksState: UiState<Bookmark>
 ) = with(info) {
 
     Box(
@@ -55,10 +60,20 @@ fun TopContent(
                 .align(Alignment.TopStart), onClick = onBackPressed
         )
 
-        BookmarkButton(
-            Modifier
-                .align(Alignment.TopEnd), onClick = onBookmarkClick
-        )
+        when (inBookmarksState) {
+            is UiState.Error -> {
+                inBookmarksState.message?.let { Log.e("bookmark", it) }
+            }
+
+            is UiState.Loading -> {}
+            is UiState.Success -> {
+                BookmarkButton(
+                    Modifier.align(Alignment.TopEnd),
+                    onClick = onBookmarkClick,
+                    inBookmarks = inBookmarksState.data == null
+                )
+            }
+        }
 
         Card(
             modifier = Modifier
