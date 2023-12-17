@@ -1,6 +1,6 @@
 [versions]
-android-gradle-plugin = "8.1.1"
-kotlin-android = "1.9.0"
+android-gradle-plugin = "8.2.0"
+kotlin-android = "1.9.10"
 lifecycle-runtime-ktx = "2.6.2"
 compose = "2023.10.01"
 compose-material = "1.5.4"
@@ -20,7 +20,7 @@ hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt-andr
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.require = "1.12.0" }
 lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
-activity-compose = { group = "androidx.activity", name = "activity-compose", version.require = "1.8.0" }
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.require = "1.8.1" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
@@ -36,12 +36,12 @@ compose-material-icons = { group = "androidx.compose.material", name = "material
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
 #Firebase
-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.require = "32.5.0" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.require = "32.7.0" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
 
 #Coil
-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.require = "2.4.0" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.require = "2.5.0" }
 
 #Paging 3
 paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }

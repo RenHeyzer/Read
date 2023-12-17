@@ -81,6 +81,4 @@ dependencies {
         implementation(accompanist.systemuicontroller)
         implementation(gson)
     }
-    implementation("com.github.parse-community.Parse-SDK-Android:parse:4.2.1")
-    implementation("com.github.parse-community.Parse-SDK-Android:coroutines:4.2.1")
 }

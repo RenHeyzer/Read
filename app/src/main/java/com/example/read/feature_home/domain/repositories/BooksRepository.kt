@@ -9,12 +9,4 @@ import kotlinx.coroutines.flow.Flow
 interface BooksRepository {
 
     fun fetchBooks(searchQuery: String): Flow<PagingData<BookItem>>
-
-    fun fetchRecommendations(): Flow<PagingData<RecommendationItem>>
-
-    fun fetchRecommendationSlides(): Flow<Either<String, List<RecommendationItem>>>
-
-    suspend fun addBooks(item: BookItem)
-
-//    suspend fun deleteBooks()
 }

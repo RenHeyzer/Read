@@ -34,9 +34,6 @@ class HomeViewModel @Inject constructor(
     private val searchQueryState = savedStateHandle.getStateFlow(SEARCH_QUERY_KEY, String())
 
     init {
-        bookRepository.fetchRecommendationSlides().collectFlowAsState(_slidesState)
-        bookRepository.fetchRecommendations().collectFlowAsPaging(_recommendationsState)
-
         searchQueryState.flatMapLatest { searchQuery ->
             bookRepository.fetchBooks(searchQuery)
         }.collectFlowAsPaging(_booksState)
@@ -44,12 +41,6 @@ class HomeViewModel @Inject constructor(
 
     fun setSearchQuery(searchQuery: String) {
         savedStateHandle[SEARCH_QUERY_KEY] = searchQuery
-    }
-
-    fun addBooks(item: BookItem) {
-        viewModelScope.launch {
-            bookRepository.addBooks(item)
-        }
     }
 
     companion object {
