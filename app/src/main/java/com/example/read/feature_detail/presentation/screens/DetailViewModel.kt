@@ -14,6 +14,7 @@ import com.example.read.feature_detail.domain.usecases.AddBookToBookmarksUseCase
 import com.example.read.feature_detail.domain.usecases.BookmarkResult
 import com.example.read.feature_detail.domain.usecases.DeleteBookFromBookmarksUseCase
 import com.example.read.feature_profile.domain.repositories.ProfileRepository
+import com.example.read.utils.BookmarksRealtime
 import com.example.read.utils.base.BaseViewModel
 import com.example.read.utils.state_holders.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -125,6 +126,7 @@ class DetailViewModel @Inject constructor(
                 is BookmarkResult.Success -> {
                     checkBookInBookmarks()
                     _bookmarkState.emit(BookmarkState.Success())
+                    BookmarksRealtime.insert()
                 }
 
                 is BookmarkResult.AuthFailure -> _bookmarkState.emit(BookmarkState.AuthFailure())
@@ -145,6 +147,7 @@ class DetailViewModel @Inject constructor(
                     Log.e("delete_bookmark", "success")
                     checkBookInBookmarks()
                     _bookmarkState.emit(BookmarkState.Success(false))
+                    BookmarksRealtime.delete()
                 }
 
                 is BookmarkResult.AuthFailure -> _bookmarkState.emit(BookmarkState.AuthFailure())

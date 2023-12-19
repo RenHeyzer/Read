@@ -8,7 +8,6 @@ import com.example.read.feature_home.domain.repositories.BooksRepository
 import com.example.read.feature_home.presentation.screens.HomeViewModel
 import com.example.read.utils.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.github.jan.supabase.exceptions.HttpRequestException
 import io.github.jan.supabase.gotrue.GoTrue
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -40,19 +39,5 @@ class MainViewModel @Inject constructor(
 
     fun setSearchQuery(searchQuery: String) {
         savedStateHandle[HomeViewModel.SEARCH_QUERY_KEY] = searchQuery
-    }
-
-    fun checkCurrentSession() = with(gotrue) {
-        if (currentSessionOrNull() == null) {
-            viewModelScope.launch {
-                kotlin.runCatching {
-                    refreshCurrentSession()
-                }.onSuccess {
-
-                }.onFailure {
-
-                }
-            }
-        }
     }
 }

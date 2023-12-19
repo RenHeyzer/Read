@@ -7,10 +7,12 @@ import com.example.read.feature_bookmarks.domain.models.BookmarkType
 import com.example.read.feature_bookmarks.domain.repositories.BookmarksRepository
 import com.example.read.feature_home.domain.models.BookItem
 import com.example.read.feature_profile.domain.repositories.ProfileRepository
+import com.example.read.utils.BookmarksRealtime
 import com.example.read.utils.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,7 +27,7 @@ class BookmarksViewModel @Inject constructor(
     private val _bookmarksState = MutableStateFlow(PagingData.empty<BookItem>())
     val bookmarksState = _bookmarksState.asStateFlow()
 
-    private val _bookmarkTypeState =
+    private val bookmarkTypeState =
         savedStateHandle.getStateFlow(BOOKMARK_TYPE_KEY, BookmarkType.All)
 
     private val _notAuthenticatedState = MutableStateFlow(false)
@@ -35,8 +37,10 @@ class BookmarksViewModel @Inject constructor(
         viewModelScope.launch {
             userRepository.getSessionStatus(
                 authenticated = {
-                    _bookmarkTypeState.flatMapLatest {
-                        bookmarksRepository.getBookmarks(it)
+                    combine(bookmarkTypeState, BookmarksRealtime.channel) { type, change ->
+                        type to change
+                    }.flatMapLatest {
+                        bookmarksRepository.getBookmarks(it.first)
                     }.collectFlowAsPaging(_bookmarksState)
                 },
                 notAuthenticated = {

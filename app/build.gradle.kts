@@ -39,7 +39,7 @@ android {
                 "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNraXBsbHBrYWt4Ymx6enBram5qIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTkxOTM1MDQsImV4cCI6MjAxNDc2OTUwNH0.geF38px8D4TddS5Tlp3NYpGxqwlKoucRRlEUY3MZqfE\""
             )
             isMinifyEnabled = false
-            proguardFiles(
+            proguardFiles(  
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )

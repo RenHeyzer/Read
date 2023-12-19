@@ -36,7 +36,6 @@ object AppModule {
     @Singleton
     fun provideAppDispatchers(): AppDispatchers = AppDispatchers()
 
-    @OptIn(InternalAPI::class)
     @Provides
     @Singleton
     fun provideSupabaseClient() = createSupabaseClient(
