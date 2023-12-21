@@ -1,12 +1,12 @@
 [versions]
 android-gradle-plugin = "8.2.0"
-kotlin-android = "1.9.10"
+kotlin-android = "1.9.20"
 lifecycle-runtime-ktx = "2.6.2"
 compose = "2023.10.01"
 compose-material = "1.5.4"
 paging = "3.2.1"
 hilt-android = "2.48"
-navigation = "2.7.5"
+navigation = "2.7.6"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -20,7 +20,7 @@ hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt-andr
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.require = "1.12.0" }
 lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
-activity-compose = { group = "androidx.activity", name = "activity-compose", version.require = "1.8.1" }
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.require = "1.8.2" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }

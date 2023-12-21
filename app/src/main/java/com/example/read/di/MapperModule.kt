@@ -10,10 +10,10 @@ import com.example.read.utils.mappers.RecommendationItemMapper
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 interface MapperModule {
 
     @Binds

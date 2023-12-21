@@ -31,18 +31,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.example.read.R
-import com.example.read.feature_bookmarks.presentation.screens.BookmarksScreen
-import com.example.read.feature_catalog.presentation.screens.CatalogScreen
-import com.example.read.feature_detail.presentation.screens.DetailScreen
 import com.example.read.feature_home.presentation.screens.MainScreen
-import com.example.read.feature_profile.presentation.screens.ProfileScreen
 import com.example.read.main.presentation.Screen
 import com.example.read.ui.theme.DarkPurpleVertical
 import com.example.read.ui.theme.PurpleVertical
@@ -149,40 +143,16 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable(Screen.Catalog.route) {
-                                CatalogScreen(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .background(White80),
-                                    navController = navController
-                                )
+
                             }
                             composable(Screen.Bookmarks.route) {
-                                BookmarksScreen(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .background(White80),
-                                    navController = navController
-                                )
+
                             }
                             composable(Screen.Profile.route) {
-                                ProfileScreen(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .background(White80),
-                                    navController = navController
-                                )
+
                             }
-                            composable(
-                                route = "${Screen.Detail.route}/{path}",
-                                arguments = listOf(navArgument("path") {
-                                    type = NavType.StringType
-                                })
-                            ) {
-                                DetailScreen(
-                                    modifier = Modifier.fillMaxSize()
-                                        .background(White80),
-                                    navController = navController,
-                                )
+                            composable(Screen.Detail.route) {
+
                             }
                         }
                     }

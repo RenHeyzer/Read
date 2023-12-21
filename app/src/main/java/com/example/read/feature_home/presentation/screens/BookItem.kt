@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.read.R
-import com.example.read.feature_detail.domain.models.Chapter
 import com.example.read.feature_home.domain.models.BookItem
 import com.example.read.ui.theme.DarkPurpleVertical
 import com.example.read.ui.theme.rubikFamily
@@ -80,7 +79,7 @@ fun BookItem(
                     .fillMaxWidth()
                     .height(4.dp)
             )
-            if (latestChapter?.title != null) {
+            /*if (latestChapter?.title != null) {
                 latestChapter.number?.let { number ->
                     Text(
                         text = stringResource(
@@ -122,7 +121,7 @@ fun BookItem(
                     text = it, fontFamily = rubikFamily,
                     fontWeight = FontWeight.Normal, color = Color.Gray, fontSize = 14.sp
                 )
-            }
+            }*/
         }
     }
 }
@@ -144,11 +143,11 @@ fun PreviewBookItem() {
             id = "d9Iu94Q2SSvnBQWf8IzF",
             title = "Пойдем в караоке!",
             coverImage = "https://cover.imglib.info/uploads/cover/karaoke-iko/cover/jQPCea6qyp1o_250x350.jpg",
-            latestChapter = Chapter(
+            /*latestChapter = Chapter(
                 tome = 1,
                 number = 2.5,
                 releaseDate = Date(1537287840000)
-            ),
+            ),*/
         )
     )
 }

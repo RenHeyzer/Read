@@ -31,7 +31,6 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.read.R
-import com.example.read.feature_detail.domain.models.Chapter
 import com.example.read.feature_home.domain.models.BookItem
 import com.example.read.ui.theme.DarkPurpleVertical
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -143,11 +142,11 @@ fun PreviewItems() {
             id = "d9Iu94Q2SSvnBQWf8IzF",
             title = "Пойдем в караоке!",
             coverImage = "https://cover.imglib.info/uploads/cover/karaoke-iko/cover/jQPCea6qyp1o_250x350.jpg",
-            latestChapter = Chapter(
+            /*latestChapter = Chapter(
                 tome = 1,
                 number = 2.5,
                 releaseDate = Date(1537287840000)
-            ),
+            ),*/
         )
     }
     val flow = MutableStateFlow(PagingData.from(data))
