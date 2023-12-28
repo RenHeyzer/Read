@@ -52,6 +52,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
         buildConfig = true
     }
     composeOptions {
@@ -67,18 +68,23 @@ android {
 dependencies {
     libs.apply {
         implementation(core.ktx)
+        implementation(appcompat)
+        implementation(material)
+        implementation(constraint)
         implementation(lifecycle.runtime)
         implementation(activity.compose)
         implementation(platform(compose.bom))
         implementation(bundles.compose)
         implementation(platform(firebase.bom))
         implementation(bundles.firebase)
-        implementation(coil.compose)
         implementation(bundles.paging)
         implementation(bundles.hilt)
         kapt(hilt.android.compiler)
+        implementation(bundles.navigation)
         implementation(navigation.compose)
-        implementation(accompanist.systemuicontroller)
+        implementation(coil)
+        implementation(glide)
+        implementation(view.binding.property.delegate.noreflection)
         implementation(gson)
     }
 }

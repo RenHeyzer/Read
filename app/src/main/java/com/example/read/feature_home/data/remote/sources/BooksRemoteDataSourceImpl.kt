@@ -1,17 +1,18 @@
 package com.example.read.feature_home.data.remote.sources
 
-import com.example.read.utils.constants.Constants
-import com.google.firebase.firestore.FirebaseFirestore
-import dagger.hilt.android.scopes.ViewModelScoped
+import com.example.read.common.constants.Constants
+import com.example.read.common.data.utils.FirestoreGetRemoteDataSource
+import com.example.read.common.data.utils.FirestoreGetRemoteDataSourceImpl
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Query
 import javax.inject.Inject
+import javax.inject.Named
 
-@ViewModelScoped
 class BooksRemoteDataSourceImpl @Inject constructor(
-    private val firestore: FirebaseFirestore
-) : BooksRemoteDataSource {
+    @Named(Constants.BOOKS_COLLECTION_PATH) private val booksCollection: CollectionReference
+) : BooksRemoteDataSource, FirestoreGetRemoteDataSource by FirestoreGetRemoteDataSourceImpl() {
 
-    override suspend fun getBooks(limit: Long) =
-        firestore.collection(Constants.BOOKS_COLLECTION_PATH).limit(
-            limit
-        )
+    override suspend fun getBooks(limit: Long, startAfter: DocumentSnapshot?): Query =
+        get(collection = booksCollection, limit = limit, startAfter = startAfter)
 }

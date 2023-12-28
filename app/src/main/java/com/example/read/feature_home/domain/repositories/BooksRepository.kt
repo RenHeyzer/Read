@@ -1,12 +1,10 @@
 package com.example.read.feature_home.domain.repositories
 
 import androidx.paging.PagingData
-import com.example.read.feature_home.domain.models.BookItem
-import com.example.read.feature_home.domain.models.RecommendationItem
-import com.example.read.utils.state_holders.Either
+import com.example.read.common.domain.models.BookEntity
 import kotlinx.coroutines.flow.Flow
 
 interface BooksRepository {
 
-    fun fetchBooks(searchQuery: String): Flow<PagingData<BookItem>>
+    fun fetchBooks(): Flow<PagingData<BookEntity>>
 }

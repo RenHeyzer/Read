@@ -1,14 +1,14 @@
 package com.example.read.feature_home.data.repositories
 
 import androidx.paging.map
-import com.example.read.feature_home.data.paging.BooksPagingSource
-import com.example.read.feature_home.data.remote.dtos.BookItemDto
+import com.example.read.common.data.base.BaseRepository
+import com.example.read.common.data.paging.BooksPagingSource
+import com.example.read.common.data.remote.models.BookDto
+import com.example.read.common.domain.models.BookEntity
+import com.example.read.common.mappers.Mapper
+import com.example.read.common.utils.AppDispatchers
 import com.example.read.feature_home.data.remote.sources.BooksRemoteDataSource
-import com.example.read.feature_home.domain.models.BookItem
 import com.example.read.feature_home.domain.repositories.BooksRepository
-import com.example.read.utils.base.BaseRepository
-import com.example.read.utils.dispatchers.AppDispatchers
-import com.example.read.utils.mappers.Mapper
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -17,12 +17,13 @@ import javax.inject.Inject
 class BooksRepositoryImpl @Inject constructor(
     private val appDispatchers: AppDispatchers,
     private val booksRemoteDataSource: BooksRemoteDataSource,
-    private val bookItemMapper: Mapper<BookItemDto, BookItem>
+    private val bookItemMapper: Mapper<BookDto, BookEntity>
 ) : BaseRepository(appDispatchers), BooksRepository {
-    override fun fetchBooks(searchQuery: String) = doPagingFlowRequest(
+    override fun fetchBooks() = doPagingFlowRequest(
         pagingSource = BooksPagingSource(
-            booksRemoteDataSource = booksRemoteDataSource,
-            searchQuery = searchQuery,
+            request = { limit, startAfter ->
+                booksRemoteDataSource.getBooks(limit, startAfter)
+            }
         )
     ).map { items ->
         items.map {
