@@ -68,9 +68,10 @@ android {
 dependencies {
     libs.apply {
         implementation(core.ktx)
+        implementation(activity.ktx)
         implementation(appcompat)
         implementation(material)
-        implementation(constraint)
+        implementation(constraintlayout)
         implementation(lifecycle.runtime)
         implementation(activity.compose)
         implementation(platform(compose.bom))
