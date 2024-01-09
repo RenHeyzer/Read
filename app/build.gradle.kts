@@ -87,5 +87,7 @@ dependencies {
         implementation(glide)
         implementation(view.binding.property.delegate.noreflection)
         implementation(gson)
+        implementation(circle.imageview)
+        implementation(dots.indicator)
     }
 }
