@@ -7,14 +7,14 @@
         android:title="@string/screen_home" />
 
     <item
-        android:id="@+id/bookmarksFragment"
-        android:icon="@drawable/ic_bookmark"
-        android:title="@string/screen_bookmarks" />
-
-    <item
         android:id="@+id/catalogFragment"
         android:icon="@drawable/ic_catalog"
         android:title="@string/screen_catalog" />
+
+    <item
+        android:id="@+id/bookmarksFragment"
+        android:icon="@drawable/ic_bookmark"
+        android:title="@string/screen_bookmarks" />
 
     <item
         android:id="@+id/profileFragment"

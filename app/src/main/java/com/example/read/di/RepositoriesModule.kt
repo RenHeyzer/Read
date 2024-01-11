@@ -1,5 +1,7 @@
 package com.example.read.di
 
+import com.example.read.feature_auth.data.repositories.AuthRepositoryImpl
+import com.example.read.feature_auth.domain.repositories.AuthRepository
 import com.example.read.feature_catalog.data.repositories.CatalogRepositoryImpl
 import com.example.read.feature_catalog.domain.repositories.CatalogRepository
 import com.example.read.feature_home.data.repositories.BooksRepositoryImpl
@@ -18,4 +20,7 @@ interface RepositoriesModule {
 
     @Binds
     fun bindCatalogRepository(repositoryImpl: CatalogRepositoryImpl): CatalogRepository
+
+    @Binds
+    fun bindAuthRepository(repositoryImpl: AuthRepositoryImpl): AuthRepository
 }

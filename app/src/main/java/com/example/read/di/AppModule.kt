@@ -1,6 +1,7 @@
 package com.example.read.di
 
 import com.example.read.common.utils.AppDispatchers
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.Module
@@ -20,4 +21,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideFirebaseFirestore() = Firebase.firestore
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth() = Firebase.auth
 }

@@ -4,7 +4,7 @@ import androidx.paging.map
 import com.example.read.common.data.base.BaseRepository
 import com.example.read.common.data.paging.BooksPagingSource
 import com.example.read.common.data.remote.models.BookDto
-import com.example.read.common.domain.models.BookEntity
+import com.example.read.common.domain.models.Book
 import com.example.read.common.mappers.Mapper
 import com.example.read.common.utils.AppDispatchers
 import com.example.read.feature_catalog.data.remote.sources.CatalogRemoteDataSource
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class CatalogRepositoryImpl @Inject constructor(
     private val appDispatchers: AppDispatchers,
     private val catalogRemoteDataSource: CatalogRemoteDataSource,
-    private val bookItemMapper: Mapper<BookDto, BookEntity>
+    private val bookItemMapper: Mapper<BookDto, Book>
 ) : BaseRepository(appDispatchers), CatalogRepository {
 
     override fun getMangaCatalog() = doPagingFlowRequest(

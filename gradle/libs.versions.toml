@@ -52,6 +52,9 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage-ktx" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
+
+google-play-services = { group = "com.google.android.gms", name = "play-services-auth", version.require = "20.7.0" }
 
 #Coil
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.require = "2.5.0" }
@@ -86,5 +89,5 @@ compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "c
 hilt = ["hilt-compose", "hilt-android"]
 navigation = ["navigation-compose", "navigation-fragment-ktx", "navigation-ui-ktx"]
 paging = ["paging-runtime", "paging-compose"]
-firebase = ["firebase-analytics", "firebase-firestore", "firebase-storage"]
+firebase = ["firebase-analytics", "firebase-firestore", "firebase-storage", "firebase-auth"]
 aloglia = ["algolia-instant-search-compose", "algolia-instant-search-paging"]

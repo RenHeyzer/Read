@@ -2,7 +2,7 @@ package com.example.read.feature_home.presentation.viewmodels
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.paging.PagingData
-import com.example.read.common.domain.models.BookEntity
+import com.example.read.common.domain.models.Book
 import com.example.read.common.presentation.base.BaseViewModel
 import com.example.read.common.presentation.utils.UiState
 import com.example.read.feature_home.domain.models.RecommendationItem
@@ -18,7 +18,7 @@ class HomeViewModel @Inject constructor(
     private val bookRepository: BooksRepository,
 ) : BaseViewModel() {
 
-    private val _booksState = MutableStateFlow(PagingData.empty<BookEntity>())
+    private val _booksState = MutableStateFlow(PagingData.empty<Book>())
     val booksState = _booksState.asStateFlow()
 
     private val _recommendationsState = MutableStateFlow(PagingData.empty<RecommendationItem>())

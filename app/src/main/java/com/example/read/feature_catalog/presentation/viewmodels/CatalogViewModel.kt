@@ -2,7 +2,7 @@ package com.example.read.feature_catalog.presentation.viewmodels
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.paging.PagingData
-import com.example.read.common.domain.models.BookEntity
+import com.example.read.common.domain.models.Book
 import com.example.read.common.presentation.base.BaseViewModel
 import com.example.read.feature_catalog.domain.repositories.CatalogRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,10 +16,10 @@ class CatalogViewModel @Inject constructor(
     private val catalogRepository: CatalogRepository
 ) : BaseViewModel() {
 
-    private val _comicsState = MutableStateFlow<PagingData<BookEntity>>(PagingData.empty())
+    private val _comicsState = MutableStateFlow<PagingData<Book>>(PagingData.empty())
     val comicsState = _comicsState.asStateFlow()
 
-    private val _mangaState = MutableStateFlow<PagingData<BookEntity>>(PagingData.empty())
+    private val _mangaState = MutableStateFlow<PagingData<Book>>(PagingData.empty())
     val mangaState = _mangaState.asStateFlow()
 
     init {

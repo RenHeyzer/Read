@@ -1,12 +1,12 @@
 package com.example.read.common.mappers
 
 import com.example.read.common.data.remote.models.BookDto
-import com.example.read.common.domain.models.BookEntity
+import com.example.read.common.domain.models.Book
 import javax.inject.Inject
 
-class BookItemMapper @Inject constructor(): Mapper<BookDto, BookEntity> {
+class BookItemMapper @Inject constructor(): Mapper<BookDto, Book> {
 
-    override fun to(model: BookDto) = BookEntity(
+    override fun to(model: BookDto) = Book(
         id = model.id,
         title = model.title,
         coverImage = model.coverImage,
@@ -16,7 +16,7 @@ class BookItemMapper @Inject constructor(): Mapper<BookDto, BookEntity> {
         info = model.info
     )
 
-    override fun from(model: BookEntity) = BookDto(
+    override fun from(model: Book) = BookDto(
         id = model.id,
         title = model.title,
         coverImage = model.coverImage,

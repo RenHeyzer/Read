@@ -3,6 +3,7 @@ package com.example.read.feature_profile.presentation.ui.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.read.R
 import com.example.read.common.presentation.base.BaseFragment
@@ -17,7 +18,13 @@ class ProfileFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onLoginButtonClick()
+    }
 
+    private fun onLoginButtonClick() {
+        binding.btnLogin.setOnClickListener {
+            findNavController().navigate(R.id.singInFragment)
+        }
     }
 
 }

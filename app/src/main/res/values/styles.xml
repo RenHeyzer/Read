@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  With text size  -->
+
+    <style name="TextAppearance.VerySmall" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size_very_small</item>
+    </style>
+
+    <style name="TextAppearance.Small" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="TextAppearance.Medium" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+    <style name="TextAppearance.Large" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="TextAppearance.VeryLarge" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size_very_large</item>
+    </style>
+
+    <!--  With primary color  -->
+
+    <style name="TextAppearance.VerySmall.Primary" parent="TextAppearance.VerySmall">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Small.Primary" parent="TextAppearance.Small">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Medium.Primary" parent="TextAppearance.Medium">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Large.Primary" parent="TextAppearance.Large">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.VeryLarge.Primary" parent="TextAppearance.VeryLarge">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <!--  With secondary color  -->
+
+    <style name="TextAppearance.VerySmall.Secondary" parent="TextAppearance.VerySmall">
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="TextAppearance.Small.Secondary" parent="TextAppearance.Small">
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="TextAppearance.Medium.Secondary" parent="TextAppearance.Medium">
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="TextAppearance.Large.Secondary" parent="TextAppearance.Large">
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="TextAppearance.VeryLarge.Secondary" parent="TextAppearance.VeryLarge">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <!--  With tertiary color  -->
+
+    <style name="TextAppearance.VerySmall.Tertiary" parent="TextAppearance.VerySmall">
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="TextAppearance.Small.Tertiary" parent="TextAppearance.Small">
+        <item name="android:textColor">?android:textColorTertiary</item>
+    </style>
+
+    <style name="TextAppearance.Medium.Tertiary" parent="TextAppearance.Medium">
+        <item name="android:textColor">?android:textColorTertiary</item>
+    </style>
+
+    <style name="TextAppearance.Large.Tertiary" parent="TextAppearance.Large">
+        <item name="android:textColor">?android:textColorTertiary</item>
+    </style>
+
+    <style name="TextAppearance.VeryLarge.Tertiary" parent="TextAppearance.VeryLarge">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <!--  With on secondary color  -->
+
+    <style name="TextAppearance.VerySmall.OnSecondary" parent="TextAppearance.VerySmall">
+        <item name="android:textColor">?colorOnSecondary</item>
+    </style>
+
+    <style name="TextAppearance.Small.OnSecondary" parent="TextAppearance.Small">
+        <item name="android:textColor">?colorOnSecondary</item>
+    </style>
+
+    <style name="TextAppearance.Medium.OnSecondary" parent="TextAppearance.Medium">
+        <item name="android:textColor">?colorOnSecondary</item>
+    </style>
+
+    <style name="TextAppearance.Large.OnSecondary" parent="TextAppearance.Large">
+        <item name="android:textColor">?colorOnSecondary</item>
+    </style>
+
+    <style name="TextAppearance.VeryLarge.OnSecondary" parent="TextAppearance.VeryLarge">
+        <item name="android:textColor">?colorOnSecondary</item>
+    </style>
+
+    <!--  With on Tertiary color  -->
+
+    <style name="TextAppearance.VerySmall.OnTertiary" parent="TextAppearance.VerySmall">
+        <item name="android:textColor">?colorOnTertiary</item>
+    </style>
+
+    <style name="TextAppearance.Small.OnTertiary" parent="TextAppearance.Small">
+        <item name="android:textColor">?colorOnTertiary</item>
+    </style>
+
+    <style name="TextAppearance.Medium.OnTertiary" parent="TextAppearance.Medium">
+        <item name="android:textColor">?colorOnTertiary</item>
+    </style>
+
+    <style name="TextAppearance.Large.OnTertiary" parent="TextAppearance.Large">
+        <item name="android:textColor">?colorOnTertiary</item>
+    </style>
+
+    <style name="TextAppearance.VeryLarge.OnTertiary" parent="TextAppearance.VeryLarge">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+    
+    <!--  Material Button style  -->
+    <style name="ThemeOverlay.Material3.Button.Tertiary" parent="ThemeOverlay.Material3.Button">
+        <item name="android:textColor">?colorOnTertiary</item>
+        <item name="cornerRadius">@dimen/medium</item>
+        <item name="backgroundTint">?colorTertiary</item>
+    </style>
+
+    <!--  TextInputLayout style  -->
+
+    <style name="Widget.TextInputLayout.OutlineBox.Overlay" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/medium</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/medium</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/medium</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/medium</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeColor">?colorOnPrimary</item>
+        <item name="boxStrokeErrorColor">?colorError</item>
+        <item name="errorTextAppearance">@style/TextAppearance.Small</item>
+        <item name="errorTextColor">?colorError</item>
+        <item name="hintTextAppearance">@style/TextAppearance.VerySmall</item>
+        <item name="cursorColor">?colorOnPrimary</item>
+        <item name="cursorErrorColor">?colorError</item>
+        <item name="hintTextColor">?android:textColorPrimary</item>
+        <item name="android:textColorHint">?android:textColorTertiary</item>
+        <item name="android:layout_marginHorizontal">@dimen/margin_30</item>
+    </style>
+    
+    <!--  TextInputEditText style  -->
+    <style name="Widget.TextInputEditText.Overlay" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:textColorHighlight">?colorAccent</item>
+    </style>
+    
+    <!--  Bottom Navigation itemActiveIndicatorStyle  -->
+    <style name="Widget.Custom.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/teal_pink</item>
+    </style>
+
+</resources>

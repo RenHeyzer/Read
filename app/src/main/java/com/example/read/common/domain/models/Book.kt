@@ -2,7 +2,7 @@ package com.example.read.common.domain.models
 
 import com.example.read.common.mappers.Mappable
 
-data class BookEntity(
+data class Book(
     val id: String? = null,
     val title: String? = null,
     val coverImage: String? = null,

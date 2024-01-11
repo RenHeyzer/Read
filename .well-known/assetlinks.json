@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "Read",
+    "package_name": "com.example.read",
+    "sha256_cert_fingerprints":
+    ["B8:9A:E0:DE:E9:6E:C1:3C:08:C6:D0:95:D7:D5:C5:96:3E:49:8A:29:35:FB:AC:E2:43:6A:4C:C4:65:BB:D2:53"]
+  }
+}]

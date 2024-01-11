@@ -1,5 +1,7 @@
 package com.example.read.di
 
+import com.example.read.feature_auth.data.remote.sources.AuthRemoteDataSource
+import com.example.read.feature_auth.data.remote.sources.AuthRemoteDataSourceImpl
 import com.example.read.feature_catalog.data.remote.sources.CatalogRemoteDataSource
 import com.example.read.feature_catalog.data.remote.sources.CatalogRemoteDataSourceImpl
 import com.example.read.feature_home.data.remote.sources.BooksRemoteDataSource
@@ -18,4 +20,7 @@ interface DataSourcesModule {
 
     @Binds
     fun bindCatalogRemoteDataSource(remoteDataSourceImpl: CatalogRemoteDataSourceImpl): CatalogRemoteDataSource
+
+    @Binds
+    fun bindSignUpRemoteDataSource(remoteDataSourceImpl: AuthRemoteDataSourceImpl): AuthRemoteDataSource
 }

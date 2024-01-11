@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_until_resending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_regular"
+        android:text="@string/until_resending_confirmation_email"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.Medium.Primary" />
+
+    <TextView
+        android:id="@+id/tv_resend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small"
+        android:fontFamily="@font/rubik_medium"
+        android:text="@string/resend_confirmation_email"
+        android:textAppearance="@style/TextAppearance.Medium.Primary"
+        android:textColor="?colorTertiary"
+        android:visibility="gone" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small"
+        android:backgroundTint="?attr/colorTertiary"
+        android:fontFamily="@font/rubik_medium"
+        android:text="@string/check_is_email_confirmed"
+        android:textAppearance="@style/TextAppearance.Medium"
+        android:textColor="?attr/colorOnTertiary"
+        app:cornerRadius="@dimen/medium" />
+
+</LinearLayout>

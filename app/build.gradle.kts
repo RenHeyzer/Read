@@ -87,5 +87,6 @@ dependencies {
         implementation(glide)
         implementation(view.binding.property.delegate.noreflection)
         implementation(gson)
+        implementation(google.play.services)
     }
 }
